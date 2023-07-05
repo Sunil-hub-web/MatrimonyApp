@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:background="@drawable/pink_wedding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/allfrom_back"
+        android:elevation="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/ten"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/homeAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/ten"
+                android:text="LOGIN"
+                android:textColor="@color/black"
+                android:textSize="@dimen/twenty"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/edit_emailId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/ten"
+                android:background="@drawable/edit_back"
+                android:hint="Please Enter Emailid"
+                android:padding="@dimen/twelve"
+                android:textColorHint="#737373"></EditText>
+
+            <EditText
+                android:id="@+id/edit_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/ten"
+                android:layout_marginTop="@dimen/twenty"
+                android:background="@drawable/edit_back"
+                android:hint="Please Enter Password"
+                android:padding="@dimen/twelve"
+                android:textColorHint="#737373"
+                android:drawableRight="@drawable/baseline_visibility_off"></EditText>
+
+            <TextView
+                android:id="@+id/forgotpassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/ten"
+                android:text="Forgot password ? "
+                android:textColor="#E36893"
+                android:textSize="@dimen/twenty"
+                android:textStyle="normal">
+
+            </TextView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_Save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ten"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="@dimen/ten"
+                android:layout_marginBottom="10dp"
+                android:padding="@dimen/ten"
+                android:text="Login"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/bs_red">
+
+            </com.google.android.material.button.MaterialButton>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/one"
+                android:layout_marginRight="@dimen/ten"
+                android:layout_marginTop="@dimen/ten"
+                android:layout_marginBottom="@dimen/twenty">
+
+                <TextView
+                    android:id="@+id/notreg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ten"
+                    android:text="Not registered? "
+                    android:textColor="@color/bs_gray_800"
+                    android:textSize="@dimen/twenty"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/createanaccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ten"
+                    android:layout_toRightOf="@id/notreg"
+                    android:text="Create an account "
+                    android:textColor="@color/bs_pink1"
+                    android:textSize="@dimen/twenty"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
