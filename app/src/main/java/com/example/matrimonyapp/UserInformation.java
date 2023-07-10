@@ -24,8 +24,8 @@ public class UserInformation extends AppCompatActivity {
         MasterdataApi.masterApiList();
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        HabitDetailsFragment habitDetailsFragment = new HabitDetailsFragment();
-        ft.replace(R.id.framLayout, habitDetailsFragment);
+        PersonalInformationFrag personalInformationFrag = new PersonalInformationFrag();
+        ft.replace(R.id.framLayout, personalInformationFrag);
         ft.addToBackStack(null);
         ft.commit();
 

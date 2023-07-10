@@ -172,7 +172,6 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Login Please Wait.....");
         progressDialog.show();
 
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiList.Loginauth, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

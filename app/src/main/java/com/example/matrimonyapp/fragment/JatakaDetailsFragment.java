@@ -1,5 +1,6 @@
 package com.example.matrimonyapp.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,6 +28,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.matrimonyapp.ApiList;
 import com.example.matrimonyapp.R;
+import com.example.matrimonyapp.SessionManager;
 import com.example.matrimonyapp.databinding.FragmentRegister4Binding;
 import com.example.matrimonyapp.modelclass.GotraModel;
 import com.example.matrimonyapp.modelclass.LagnaModel;
@@ -42,29 +45,27 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class JatakaDetailsFragment extends Fragment {
 
     FragmentRegister4Binding binding;
-
     ArrayList<RashiModel> rashiModels;
     ArrayList<String> rashiName;
     HashMap<String,String> rashiMap;
-
     ArrayList<GotraModel> gotraModels;
     ArrayList<String> gotraName;
     HashMap<String,String> gotraMap;
-
     ArrayList<LagnaModel> lagnaModels;
     ArrayList<String> lagnaName;
     HashMap<String,String> lagnaMap;
-
     ArrayList<StarModel> starModels;
     ArrayList<String> starName;
     HashMap<String,String> starMap;
-
-    String rashi_Name,rashiId,gotra_Name,gotraId,lagna_Name,lagnaId,star_Name,starId,selectPaymentOption;
+    String rashi_Name,rashiId,gotra_Name,gotraId,lagna_Name,lagnaId,star_Name,starId,strAstrology,
+            strMangalik,userId;
     RadioButton selectedRadioButton;
+    SessionManager sessionManager;
 
     @Nullable
     @Override
@@ -77,13 +78,16 @@ public class JatakaDetailsFragment extends Fragment {
         binding = FragmentRegister4Binding.inflate(inflater,container,false);
         masterApiList();
 
+        sessionManager = new SessionManager(getActivity());
+        userId = sessionManager.getUSERID();
+
         binding.radioMangalik.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 selectedRadioButton = (RadioButton) group.findViewById(checkedId);
-                String text = selectedRadioButton.getText().toString();
-                Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+                strMangalik = selectedRadioButton.getText().toString();
+                Toast.makeText(getActivity(), strMangalik, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -92,8 +96,8 @@ public class JatakaDetailsFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
                 selectedRadioButton = (RadioButton) group.findViewById(checkedId);
-                String text = selectedRadioButton.getText().toString();
-                Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+                strAstrology = selectedRadioButton.getText().toString();
+                Toast.makeText(getActivity(), strAstrology, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -112,7 +116,6 @@ public class JatakaDetailsFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
-
         binding.spinnerRashi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -136,7 +139,6 @@ public class JatakaDetailsFragment extends Fragment {
 
             }
         });
-
         binding.spinnerStar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -160,7 +162,6 @@ public class JatakaDetailsFragment extends Fragment {
 
             }
         });
-
         binding.spinnerGotra.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -184,7 +185,6 @@ public class JatakaDetailsFragment extends Fragment {
 
             }
         });
-
         binding.spinnerLagna.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -206,6 +206,15 @@ public class JatakaDetailsFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+        binding.btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                registerDetails(userId,rashiId,gotraId,starId,lagnaId,strMangalik,strAstrology);
+
+                Log.d("registerdet1",userId+", "+rashiId+", "+gotraId+", "+starId+", "+lagnaId+", "+strMangalik+", "+strAstrology);
             }
         });
 
@@ -396,5 +405,115 @@ public class JatakaDetailsFragment extends Fragment {
         requestQueue.getCache().clear();
         requestQueue.add(stringRequest);
 
+    }
+
+    public void registerDetails(String userID,String rashi,String gotra,String star,String lagna,
+                                String mangalik,String astrology){
+
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Login Please Wait.....");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiList.updateprofile, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                progressDialog.dismiss();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String status = jsonObject.getString("status");
+                    if (status.equals("200")){
+
+                        String error = jsonObject.getString("error");
+                        String message = jsonObject.getString("message");
+
+                        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+
+                    }else{
+
+                        String error = jsonObject.getString("error");
+                        String message = jsonObject.getString("message");
+
+                        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                progressDialog.dismiss();
+
+                Toast.makeText(getContext(), "" + error, Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String,String> params = new HashMap<>();
+                params.put("user_id",userID);
+                params.put("candidate_name","");
+                params.put("dob","");
+                params.put("profile_for","");
+                params.put("marital_status","");
+                params.put("gender","");
+                params.put("living_since","");
+                params.put("pob","");
+                params.put("nationality","");
+                params.put("visa_status","");
+                params.put("religion","");
+                params.put("caste","");
+                params.put("subcaste","");
+                params.put("rashi",rashi);
+                params.put("gotra",gotra);
+                params.put("star",star);
+                params.put("lagna",lagna);
+                params.put("mangalik",mangalik);
+                params.put("astrology",astrology);
+                params.put("education","");
+                params.put("profession","");
+                params.put("income","");
+                params.put("country","");
+                params.put("state","");
+                params.put("district","");
+                params.put("city","");
+                params.put("living_with","");
+                params.put("fathername","");
+                params.put("fatheroccupation","");
+                params.put("mothername","");
+                params.put("motheroccupation","");
+                params.put("familytype","");
+                params.put("family_status","");
+                params.put("brother","");
+                params.put("sister","");
+                params.put("height","");
+                params.put("weight","");
+                params.put("body_type","");
+                params.put("ethnicity","");
+                params.put("complexion","");
+                params.put("diet","");
+                params.put("drink","");
+                params.put("smoke","");
+                params.put("disability","");
+                params.put("disease","");
+                params.put("language","");
+                params.put("skills","");
+                params.put("hobbies","");
+                params.put("description","");
+
+                Log.d("registerdet",userID+", "+rashi+", "+gotra+", "+star+", "+lagna+", "+mangalik+", "+astrology);
+
+                return params;
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(3000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
     }
 }

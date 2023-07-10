@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/allfrom_back"
-    >
+    android:background="@drawable/allfrom_back">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,7 +25,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/edit_emailId"
+                android:id="@+id/edit_DateBrith"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/ten"
@@ -80,6 +79,7 @@
                 android:textStyle="normal" />
 
             <RadioGroup
+                android:id="@+id/radioGender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/ten"

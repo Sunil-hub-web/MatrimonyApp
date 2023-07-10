@@ -28,7 +28,7 @@
             android:padding="@dimen/ten">
 
             <Spinner
-                android:id="@+id/spinner_LivingCountry"
+                android:id="@+id/spinnerEthnicity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -51,7 +51,7 @@
             android:padding="@dimen/ten">
 
             <Spinner
-                android:id="@+id/spinner_PlaceBrith"
+                android:id="@+id/spinnerHeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -84,7 +84,7 @@
             android:padding="@dimen/ten">
 
             <Spinner
-                android:id="@+id/spinner_Natianality"
+                android:id="@+id/spinnerBodyType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -109,7 +109,7 @@
             android:padding="@dimen/ten">
 
             <Spinner
-                android:id="@+id/spinner_VisaStatues"
+                android:id="@+id/spinnerComplexion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"

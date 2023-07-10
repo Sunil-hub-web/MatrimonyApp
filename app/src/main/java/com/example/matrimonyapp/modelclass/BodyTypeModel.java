@@ -1,10 +1,10 @@
 package com.example.matrimonyapp.modelclass;
 
-public class BodyType {
+public class BodyTypeModel {
 
     String bodytype_id,bodytype_name;
 
-    public BodyType(String bodytype_id, String bodytype_name) {
+    public BodyTypeModel(String bodytype_id, String bodytype_name) {
         this.bodytype_id = bodytype_id;
         this.bodytype_name = bodytype_name;
     }

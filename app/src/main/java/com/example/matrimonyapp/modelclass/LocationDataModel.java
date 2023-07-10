@@ -2,15 +2,15 @@ package com.example.matrimonyapp.modelclass;
 
 import java.util.ArrayList;
 
-public class locationData {
+public class LocationDataModel {
 
     String country_id,country_name;
-    ArrayList<StatesModel> statesModels;
+    //ArrayList<StatesModel> statesModels;
 
-    public locationData(String country_id, String country_name, ArrayList<StatesModel> statesModels) {
+    public LocationDataModel(String country_id, String country_name) {
         this.country_id = country_id;
         this.country_name = country_name;
-        this.statesModels = statesModels;
+      //  this.statesModels = statesModels;
     }
 
     public String getCountry_id() {
@@ -29,11 +29,11 @@ public class locationData {
         this.country_name = country_name;
     }
 
-    public ArrayList<StatesModel> getStatesModels() {
+  /*  public ArrayList<StatesModel> getStatesModels() {
         return statesModels;
     }
 
     public void setStatesModels(ArrayList<StatesModel> statesModels) {
         this.statesModels = statesModels;
-    }
+    }*/
 }

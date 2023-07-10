@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class StatesModel {
 
     String state_id,state_name;
-    ArrayList<Districts> districts;
+    //ArrayList<DistrictsModel> districts;
 
-    public StatesModel(String state_id, String state_name, ArrayList<Districts> districts) {
+    public StatesModel(String state_id, String state_name) {
         this.state_id = state_id;
         this.state_name = state_name;
-        this.districts = districts;
+       // this.districts = districts;
     }
 
     public String getState_id() {
@@ -29,11 +29,11 @@ public class StatesModel {
         this.state_name = state_name;
     }
 
-    public ArrayList<Districts> getDistricts() {
+  /*  public ArrayList<DistrictsModel> getDistricts() {
         return districts;
     }
 
-    public void setDistricts(ArrayList<Districts> districts) {
+    public void setDistricts(ArrayList<DistrictsModel> districts) {
         this.districts = districts;
-    }
+    }*/
 }

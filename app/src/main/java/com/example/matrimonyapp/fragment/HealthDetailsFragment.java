@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.matrimonyapp.R;
 import com.example.matrimonyapp.databinding.FragmentRegister10Binding;
@@ -48,6 +50,22 @@ public class HealthDetailsFragment extends Fragment {
                 selectedRadioButton = (RadioButton) group.findViewById(checkedId);
                 String text = selectedRadioButton.getText().toString();
                 Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        binding.btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Fragment fragment = new HabitDetailsFragment();
+                Bundle args = new Bundle();
+                args.putString("YourKey", "SchoolUniform");
+                fragment.setArguments(args);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.framLayout, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
 
