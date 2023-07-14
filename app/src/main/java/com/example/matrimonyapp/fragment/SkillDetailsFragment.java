@@ -1,10 +1,12 @@
 package com.example.matrimonyapp.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -14,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,6 +26,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.matrimonyapp.ApiList;
 import com.example.matrimonyapp.R;
+import com.example.matrimonyapp.SessionManager;
 import com.example.matrimonyapp.databinding.FragmentRegister7Binding;
 import com.example.matrimonyapp.modelclass.EducationModel;
 import com.example.matrimonyapp.modelclass.IncomeModel;
@@ -43,6 +47,8 @@ public class SkillDetailsFragment extends Fragment {
     ArrayList<String> language_Name;
     Map<String,String> language_Map;
     FragmentRegister7Binding binding;
+    SessionManager sessionManager;
+    String userId,languageId,languageName;
 
     @Nullable
     @Override
@@ -55,6 +61,41 @@ public class SkillDetailsFragment extends Fragment {
         binding = FragmentRegister7Binding.inflate(inflater,container,false);
 
         masterApiList();
+
+        sessionManager = new SessionManager(getActivity());
+        userId = sessionManager.getUSERID();
+        binding.spinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                languageName = binding.spinnerLanguage.getItemAtPosition(binding.spinnerLanguage.getSelectedItemPosition()).toString();
+
+                if (languageName.equalsIgnoreCase("Select Language")) {
+
+                    languageId = "";
+
+                } else {
+
+                    languageId = language_Map.get(languageName);
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        binding.btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                registerDetails(userId,languageId,binding.editYourSkill.getText().toString().trim(),
+                        binding.editYourHobbies.getText().toString().trim(),
+                        binding.editSomethingAboutyou.getText().toString().trim());
+            }
+        });
 
         binding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,5 +208,114 @@ public class SkillDetailsFragment extends Fragment {
         requestQueue.getCache().clear();
         requestQueue.add(stringRequest);
 
+    }
+
+    public void registerDetails(String userID,String language,String skills,String hobbies,String description){
+
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Login Please Wait.....");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiList.updateprofile, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                progressDialog.dismiss();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String status = jsonObject.getString("status");
+                    if (status.equals("200")){
+
+                        String error = jsonObject.getString("error");
+                        String message = jsonObject.getString("message");
+
+                        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+
+                    }else{
+
+                        String error = jsonObject.getString("error");
+                        String message = jsonObject.getString("message");
+
+                        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                progressDialog.dismiss();
+
+                Toast.makeText(getContext(), "" + error, Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String,String> params = new HashMap<>();
+                params.put("user_id",userID);
+                params.put("candidate_name","");
+                params.put("dob","");
+                params.put("profile_for","");
+                params.put("marital_status","");
+                params.put("gender","");
+                params.put("living_since","");
+                params.put("pob","");
+                params.put("nationality","");
+                params.put("visa_status","");
+                params.put("religion","");
+                params.put("caste","");
+                params.put("subcaste","");
+                params.put("rashi","");
+                params.put("gotra","");
+                params.put("star","");
+                params.put("lagna","");
+                params.put("mangalik","");
+                params.put("astrology","");
+                params.put("education","");
+                params.put("profession","");
+                params.put("income","");
+                params.put("country","");
+                params.put("state","");
+                params.put("district","");
+                params.put("city","");
+                params.put("living_with","");
+                params.put("fathername","");
+                params.put("fatheroccupation","");
+                params.put("mothername","");
+                params.put("motheroccupation","");
+                params.put("familytype","");
+                params.put("family_status","");
+                params.put("brother","");
+                params.put("sister","");
+                params.put("height","");
+                params.put("weight","");
+                params.put("body_type","");
+                params.put("ethnicity","");
+                params.put("complexion","");
+                params.put("diet","");
+                params.put("drink","");
+                params.put("smoke","");
+                params.put("disability","");
+                params.put("disease","");
+                params.put("language",language);
+                params.put("skills",skills);
+                params.put("hobbies",hobbies);
+                params.put("description",description);
+
+                Log.d("registerdet",userID+", "+language+", "+skills+", "+hobbies+", "+description);
+
+                return params;
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(3000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
     }
 }
