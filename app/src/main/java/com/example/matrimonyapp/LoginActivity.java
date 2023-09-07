@@ -280,4 +280,14 @@ public class LoginActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
         requestQueue.add(stringRequest);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (sessionManager.isLogin()){
+
+            startActivity(new Intent(LoginActivity.this,DashBordActivity.class));
+        }
+    }
 }

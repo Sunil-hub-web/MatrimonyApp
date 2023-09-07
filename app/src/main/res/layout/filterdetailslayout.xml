@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F388BD">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/twenty_five">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/five">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Location"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/twenty" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:background="@drawable/edit_back"
+                    android:padding="@dimen/ten">
+
+                    <Spinner
+                        android:id="@+id/spinnerCountry"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:minHeight="0dp"
+                        android:textSize="@dimen/textsize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow_drop_down" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:background="@drawable/edit_back"
+                    android:padding="@dimen/ten">
+
+                    <Spinner
+                        android:id="@+id/spinnerState"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:minHeight="0dp"
+                        android:textSize="@dimen/textsize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow_drop_down" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:background="@drawable/edit_back"
+                    android:padding="@dimen/ten">
+
+                    <Spinner
+                        android:id="@+id/spinnerDistrict"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:minHeight="0dp"
+                        android:textSize="@dimen/textsize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow_drop_down" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:background="@drawable/edit_back"
+                    android:padding="@dimen/ten">
+
+                    <Spinner
+                        android:id="@+id/spinnerCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:minHeight="0dp"
+                        android:textSize="@dimen/textsize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow_drop_down" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gender"
+                    android:layout_margin="@dimen/five"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/twenty"
+                    android:fontFamily="@font/poppins_bold"/>
+
+                <RadioGroup
+                    android:id="@+id/radioGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ten"
+                    android:layout_weight="2"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="Male"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins_bold"></RadioButton>
+
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="FeMale"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins_bold"></RadioButton>
+
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Age"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/twenty" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <EditText
+                        android:id="@+id/edit_MinAge"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/ten"
+                        android:background="@drawable/edit_back"
+                        android:hint="Min Age"
+                        android:padding="@dimen/ten"
+                        android:textColorHint="#737373" />
+
+                    <EditText
+                        android:id="@+id/edit_MaxAge"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/ten"
+                        android:background="@drawable/edit_back"
+                        android:hint="Max Age"
+                        android:padding="@dimen/ten"
+                        android:textColorHint="#737373" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/five"
+                    android:layout_marginTop="@dimen/five"
+                    android:layout_marginEnd="@dimen/five"
+                    android:layout_marginBottom="@dimen/five"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Religion"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/twenty" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/five"
+                    android:layout_marginTop="@dimen/five"
+                    android:layout_marginEnd="@dimen/five"
+                    android:layout_marginBottom="@dimen/five"
+                    android:background="@drawable/edit_back"
+                    android:padding="@dimen/ten">
+
+                    <Spinner
+                        android:id="@+id/spinnerReligion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:minHeight="0dp"
+                        android:textSize="@dimen/textsize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow_drop_down" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Min Education"
+                    android:layout_margin="@dimen/five"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/twenty" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:background="@drawable/edit_back"
+                    android:padding="@dimen/ten">
+
+                    <Spinner
+                        android:id="@+id/spinnerEducation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:minHeight="0dp"
+                        android:textSize="@dimen/textsize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow_drop_down" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/five"
+                    android:layout_marginTop="@dimen/five"
+                    android:layout_marginEnd="@dimen/five"
+                    android:layout_marginBottom="@dimen/five"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Select Type"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/twenty" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:background="@drawable/edit_back"
+                    android:padding="@dimen/ten">
+
+                    <Spinner
+                        android:id="@+id/spinnerBodyType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:minHeight="0dp"
+                        android:textSize="@dimen/textsize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow_drop_down" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:background="@drawable/edit_back"
+                    android:padding="@dimen/ten">
+
+                    <Spinner
+                        android:id="@+id/spinnerComplexion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:minHeight="0dp"
+                        android:textSize="@dimen/textsize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow_drop_down" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:text="Select Details"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/twenty"
+                    android:fontFamily="@font/poppins_bold"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:background="@drawable/edit_back"
+                    android:padding="@dimen/ten">
+
+                    <Spinner
+                        android:id="@+id/spinnerRashi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:minHeight="0dp"
+                        android:textSize="@dimen/textsize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow_drop_down" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:background="@drawable/edit_back"
+                    android:padding="@dimen/ten">
+
+                    <Spinner
+                        android:id="@+id/spinnerGotra"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:minHeight="0dp"
+                        android:textSize="@dimen/textsize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow_drop_down" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:background="@drawable/edit_back"
+                    android:padding="@dimen/ten">
+
+                    <Spinner
+                        android:id="@+id/spinnerStar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:minHeight="0dp"
+                        android:textSize="@dimen/textsize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow_drop_down" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:background="@drawable/edit_back"
+                    android:padding="@dimen/ten">
+
+                    <Spinner
+                        android:id="@+id/spinnerLagna"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:minHeight="0dp"
+                        android:textSize="@dimen/textsize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/arrow_drop_down" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
+
+
+</RelativeLayout>

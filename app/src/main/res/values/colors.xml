@@ -22,4 +22,11 @@
     <color name="back_bg1">#38a745</color>
     <color name="back_bg2">#0d6efd</color>
     <color name="bs_pink2">#F3B6D4</color>
+    <color name="bs_pink3">#e53996</color>
+    <color name="Coral_Pink">#F88379</color>
+    <color name="Hot_Pink">#FF69B4</color>
+
+
+    <color name="button1">#20c997</color>
+    <color name="button2">#198754</color>
 </resources>

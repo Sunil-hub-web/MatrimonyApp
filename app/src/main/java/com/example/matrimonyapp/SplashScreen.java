@@ -1,6 +1,8 @@
 package com.example.matrimonyapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -12,6 +14,7 @@ import com.chootdev.blurimg.BlurImage;
 public class SplashScreen extends AppCompatActivity {
 
     ImageView imageview;
+    Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +24,11 @@ public class SplashScreen extends AppCompatActivity {
 
         imageview = findViewById(R.id.imageview);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().hide();
+        handler = new Handler();
+
+     //   getSupportActionBar().hide();
+      //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -43,5 +49,16 @@ public class SplashScreen extends AppCompatActivity {
                 .setBitmapScale(0.1f)
                 .blurFromResource(R.drawable.traditonalindianedding)
                 .into(imageview);
+
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                // This method will be executed once the timer is over
+                Intent i = new Intent(SplashScreen.this, LoginActivity.class);
+                startActivity(i);
+                finish();
+            }
+        }, 3000);
     }
 }

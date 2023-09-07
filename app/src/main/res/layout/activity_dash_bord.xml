@@ -1,26 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DashBordActivity"
-    android:background="@drawable/pink_wedding">
+    android:background="@color/Hot_Pink"
+    android:id="@+id/MyDrawer">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <FrameLayout
+        <include layout="@layout/toolbarapp"></include>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="@dimen/ten"
-            android:id="@+id/framLayout1">
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/ten"
+                android:id="@+id/framLayout">
 
 
-        </FrameLayout>
+            </FrameLayout>
 
-    </RelativeLayout>
+        </RelativeLayout>
 
-</RelativeLayout>
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationview"
+        android:layout_width="@dimen/three_hundred"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@drawable/layoutback"
+        android:overScrollMode="always"
+        app:headerLayout="@layout/navigationview"
+        android:layout_margin="@dimen/five">
+
+    </com.google.android.material.navigation.NavigationView>
+
+</androidx.drawerlayout.widget.DrawerLayout>
