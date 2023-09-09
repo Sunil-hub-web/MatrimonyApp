@@ -2,6 +2,7 @@ package com.example.matrimonyapp.fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,7 @@ public class SingleViewProfile extends Fragment {
         progressDialog.setMessage("View Profile Please Wait.....");
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiList.UserProfile, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiList.Single_profile, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -76,10 +77,14 @@ public class SingleViewProfile extends Fragment {
                     if (status.equals("200")){
 
                         String error = jsonObject.getString("error");
-                        String message = jsonObject.getString("message");
-                        String data = jsonObject.getString("data");
+                        String messages = jsonObject.getString("messages");
+                        JSONObject jsonObject_message = new JSONObject(messages);
+                        String responsecode  = jsonObject_message.getString("responsecode");
+                        String statusarray  = jsonObject_message.getString("status");
+                        JSONObject jsonObject_status = new JSONObject(statusarray);
+                        String customerdata = jsonObject_status.getString("customerdata");
 
-                        JSONArray jsonArray_data = new JSONArray(data);
+                        JSONArray jsonArray_data = new JSONArray(customerdata);
 
                         for (int i=0;i<jsonArray_data.length();i++){
 
@@ -236,6 +241,8 @@ public class SingleViewProfile extends Fragment {
                 Map<String,String> params = new HashMap<>();
                 params.put("customer_id",customer_id);
                 params.put("profile_id",profile_id);
+
+                Log.d("userdetails",params.toString());
                 return params;
             }
         };

@@ -104,6 +104,42 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/image_register"
+                android:layout_width="@dimen/thirty"
+                android:layout_height="@dimen/thirty"
+                android:layout_centerVertical="true"
+                android:src="@drawable/register"
+                app:tint="@color/back_bg2">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/nav_Register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ten"
+                android:layout_toRightOf="@+id/image_register"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Fill The Details"
+                android:textColor="@color/back_bg2"
+                android:textSize="@dimen/edittextsize">
+
+            </TextView>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/text1"
+            android:layout_marginTop="@dimen/ten"
+            android:background="@color/white" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/ten">
 
@@ -288,6 +324,43 @@
             android:layout_marginTop="@dimen/ten"
             android:background="@color/white"/>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ten">
+
+            <ImageView
+                android:id="@+id/image_findmatch"
+                android:layout_width="@dimen/twenty_five"
+                android:layout_height="@dimen/twenty_five"
+                android:layout_centerVertical="true"
+                android:src="@drawable/selectprofile"
+                app:tint="@color/back_bg2">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/nav_FindMatch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ten"
+                android:layout_toRightOf="@id/image_findmatch"
+                android:text="Find Perfect Match"
+                android:textColor="@color/back_bg2"
+                android:textSize="@dimen/edittextsize"
+                android:fontFamily="@font/poppins_medium">
+
+            </TextView>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/text1"
+            android:layout_marginTop="@dimen/ten"
+            android:background="@color/white" />
+
      <!--   <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -416,7 +489,8 @@
                 android:layout_toRightOf="@id/image_logout"
                 android:text="Logout"
                 android:textColor="@color/back_bg2"
-                android:textSize="@dimen/edittextsize">
+                android:textSize="@dimen/twenty"
+                android:fontFamily="@font/poppins_bold">
 
             </TextView>
 

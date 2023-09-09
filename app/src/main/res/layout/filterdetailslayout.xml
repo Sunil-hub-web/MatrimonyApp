@@ -130,7 +130,7 @@
                     android:fontFamily="@font/poppins_bold"/>
 
                 <RadioGroup
-                    android:id="@+id/radioGender"
+                    android:id="@+id/radioGroupGender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/ten"

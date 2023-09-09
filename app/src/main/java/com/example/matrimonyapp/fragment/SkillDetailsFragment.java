@@ -101,7 +101,7 @@ public class SkillDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Fragment fragment = new FamilyDetailsFragment();
+                Fragment fragment = new HomePageFragment();
                 Bundle args = new Bundle();
                 args.putString("YourKey", "SchoolUniform");
                 fragment.setArguments(args);

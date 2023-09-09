@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.matrimonyapp.fragment.FillteViewProfileFragment;
 import com.example.matrimonyapp.fragment.HomePageFragment;
 import com.example.matrimonyapp.fragment.PersonalInformationFrag;
 import com.example.matrimonyapp.fragment.ViewProfileActivity;
@@ -20,7 +21,9 @@ public class DashBordActivity extends AppCompatActivity implements NavigationVie
 
     NavigationView navigationview;
     DrawerLayout MyDrawer;
-    TextView nav_Home,nav_Profile,nav_ChangePassword,nav_ViewedProfile,nav_SelectedProfile,nav_PackageHistory,nav_Logout;
+    MasterdataApi masterdataApi;
+    TextView nav_Home,nav_Profile,nav_ChangePassword,nav_ViewedProfile,nav_SelectedProfile,nav_PackageHistory,
+            nav_Logout,nav_FindMatch,nav_Register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,8 @@ public class DashBordActivity extends AppCompatActivity implements NavigationVie
         nav_SelectedProfile = header.findViewById(R.id.nav_SelectedProfile);
         nav_PackageHistory = header.findViewById(R.id.nav_PackageHistory);
         nav_Logout = header.findViewById(R.id.nav_Logout);
+        nav_FindMatch = header.findViewById(R.id.nav_FindMatch);
+        nav_Register = header.findViewById(R.id.nav_Register);
 
         nav_Home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +78,37 @@ public class DashBordActivity extends AppCompatActivity implements NavigationVie
                 ft.addToBackStack(null);
                 ft.commit();
 
+            }
+        });
+
+        nav_FindMatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                MyDrawer.closeDrawer(GravityCompat.START);
+
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                FillteViewProfileFragment fillteViewProfileFragment = new FillteViewProfileFragment();
+                ft.replace(R.id.framLayout, fillteViewProfileFragment,"FillteViewProfileFragment");
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+
+        nav_Register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                MyDrawer.closeDrawer(GravityCompat.START);
+
+                masterdataApi = new MasterdataApi(DashBordActivity.this);
+                MasterdataApi.masterApiList();
+
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                PersonalInformationFrag personalInformationFrag = new PersonalInformationFrag();
+                ft.replace(R.id.framLayout, personalInformationFrag);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
 
