@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.matrimonyapp.fragment.ChangePassword;
 import com.example.matrimonyapp.fragment.FillteViewProfileFragment;
 import com.example.matrimonyapp.fragment.HomePageFragment;
 import com.example.matrimonyapp.fragment.PersonalInformationFrag;
@@ -107,6 +108,20 @@ public class DashBordActivity extends AppCompatActivity implements NavigationVie
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 PersonalInformationFrag personalInformationFrag = new PersonalInformationFrag();
                 ft.replace(R.id.framLayout, personalInformationFrag);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+
+        nav_ChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                MyDrawer.closeDrawer(GravityCompat.START);
+
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ChangePassword changePassword = new ChangePassword();
+                ft.replace(R.id.framLayout, changePassword,"ChangePassword");
                 ft.addToBackStack(null);
                 ft.commit();
             }

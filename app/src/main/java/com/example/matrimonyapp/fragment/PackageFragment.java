@@ -75,7 +75,7 @@ public class PackageFragment extends Fragment {
                         String responsecode = jsonObject_messages.getString("responsecode");
                         String statusArray = jsonObject_messages.getString("status");
                         JSONObject jsonObject_satues = new JSONObject(statusArray);
-                        String str_package = jsonObject_satues.getString("package");
+                        String str_package = jsonObject_satues.getString("package.png");
 
                         packagePriceModels = new ArrayList<>();
                         packagePriceModels.clear();

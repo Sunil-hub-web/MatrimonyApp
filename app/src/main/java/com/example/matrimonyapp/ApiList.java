@@ -15,6 +15,8 @@ public class ApiList {
     public static final String packagehistory = MAIN_URL+"packagehistory";
     public static final String All_candidate = MAIN_URL+"All_candidate";
     public static final String Single_profile = MAIN_URL+"Single_profile";
+    public static final String forgetpassword = MAIN_URL+"forgetpassword";
+    public static final String Updatepassword = MAIN_URL+"Updatepassword";
 
 
 }

@@ -75,8 +75,7 @@
                 android:layout_width="@dimen/twenty_five"
                 android:layout_height="@dimen/twenty_five"
                 android:layout_centerVertical="true"
-                android:src="@drawable/home_icon_silhouette"
-                app:tint="@color/back_bg2">
+                android:src="@drawable/home1icon">
 
             </ImageView>
 
@@ -88,7 +87,7 @@
                 android:layout_toRightOf="@+id/image_home"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Home"
-                android:textColor="@color/back_bg2"
+                android:textColor="@color/black"
                 android:textSize="@dimen/edittextsize">
 
             </TextView>
@@ -111,8 +110,7 @@
                 android:layout_width="@dimen/thirty"
                 android:layout_height="@dimen/thirty"
                 android:layout_centerVertical="true"
-                android:src="@drawable/register"
-                app:tint="@color/back_bg2">
+                android:src="@drawable/register">
 
             </ImageView>
 
@@ -123,8 +121,8 @@
                 android:layout_marginLeft="@dimen/ten"
                 android:layout_toRightOf="@+id/image_register"
                 android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black"
                 android:text="Fill The Details"
-                android:textColor="@color/back_bg2"
                 android:textSize="@dimen/edittextsize">
 
             </TextView>
@@ -148,8 +146,7 @@
                 android:layout_width="@dimen/twenty_five"
                 android:layout_height="@dimen/twenty_five"
                 android:layout_centerVertical="true"
-                android:src="@drawable/user"
-                app:tint="@color/back_bg2">
+                android:src="@drawable/user">
 
             </ImageView>
 
@@ -160,9 +157,9 @@
                 android:layout_marginLeft="@dimen/ten"
                 android:layout_toRightOf="@id/image_profile"
                 android:text="My Profile"
-                android:textColor="@color/back_bg2"
-                android:textSize="@dimen/edittextsize"
-                android:fontFamily="@font/poppins_medium">
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black"
+                android:textSize="@dimen/edittextsize">
 
             </TextView>
 
@@ -185,8 +182,7 @@
                 android:layout_width="@dimen/twenty_five"
                 android:layout_height="@dimen/twenty_five"
                 android:layout_centerVertical="true"
-                android:src="@drawable/changepassword"
-                app:tint="@color/back_bg2">
+                android:src="@drawable/password">
 
             </ImageView>
 
@@ -197,9 +193,9 @@
                 android:layout_marginLeft="@dimen/ten"
                 android:layout_toRightOf="@id/image_address"
                 android:text="Change Password"
-                android:textColor="@color/back_bg2"
-                android:textSize="@dimen/edittextsize"
-                android:fontFamily="@font/poppins_medium">
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black"
+                android:textSize="@dimen/edittextsize">
 
             </TextView>
 
@@ -223,8 +219,7 @@
                 android:layout_width="@dimen/twenty_five"
                 android:layout_height="@dimen/twenty_five"
                 android:layout_centerVertical="true"
-                android:src="@drawable/viewprofile"
-                app:tint="@color/back_bg2">
+                android:src="@drawable/viewed">
 
             </ImageView>
 
@@ -235,9 +230,9 @@
                 android:layout_marginLeft="@dimen/ten"
                 android:layout_toRightOf="@id/image_order"
                 android:text="Viewed Profile"
-                android:textColor="@color/back_bg2"
                 android:textSize="@dimen/edittextsize"
-                android:fontFamily="@font/poppins_medium">
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black">
 
             </TextView>
 
@@ -260,8 +255,7 @@
                 android:layout_width="@dimen/twenty_five"
                 android:layout_height="@dimen/twenty_five"
                 android:layout_centerVertical="true"
-                android:src="@drawable/selectprofile"
-                app:tint="@color/back_bg2">
+                android:src="@drawable/selected">
 
             </ImageView>
 
@@ -272,9 +266,9 @@
                 android:layout_marginLeft="@dimen/ten"
                 android:layout_toRightOf="@id/image_wallet"
                 android:text="Selected Profile"
-                android:textColor="@color/back_bg2"
                 android:textSize="@dimen/edittextsize"
-                android:fontFamily="@font/poppins_medium">
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black">
 
             </TextView>
 
@@ -297,8 +291,7 @@
                 android:layout_width="@dimen/twenty_five"
                 android:layout_height="@dimen/twenty_five"
                 android:layout_centerVertical="true"
-                android:src="@drawable/packagehistory"
-                app:tint="@color/back_bg2">
+                android:src="@drawable/packageaa">
 
             </ImageView>
 
@@ -309,9 +302,9 @@
                 android:layout_marginLeft="@dimen/ten"
                 android:layout_toRightOf="@id/image_PrivacyPolicy"
                 android:text="Package History"
-                android:textColor="@color/back_bg2"
                 android:textSize="@dimen/edittextsize"
-                android:fontFamily="@font/poppins_medium">
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black">
 
             </TextView>
 
@@ -334,8 +327,7 @@
                 android:layout_width="@dimen/twenty_five"
                 android:layout_height="@dimen/twenty_five"
                 android:layout_centerVertical="true"
-                android:src="@drawable/selectprofile"
-                app:tint="@color/back_bg2">
+                android:src="@drawable/selectprofile">
 
             </ImageView>
 
@@ -346,9 +338,9 @@
                 android:layout_marginLeft="@dimen/ten"
                 android:layout_toRightOf="@id/image_findmatch"
                 android:text="Find Perfect Match"
-                android:textColor="@color/back_bg2"
                 android:textSize="@dimen/edittextsize"
-                android:fontFamily="@font/poppins_medium">
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black">
 
             </TextView>
 
@@ -476,7 +468,6 @@
                 android:layout_width="@dimen/twenty_five"
                 android:layout_height="@dimen/twenty_five"
                 android:src="@drawable/logout"
-                app:tint="@color/back_bg2"
                 android:layout_centerVertical="true">
 
             </ImageView>
@@ -488,9 +479,9 @@
                 android:layout_marginLeft="@dimen/ten"
                 android:layout_toRightOf="@id/image_logout"
                 android:text="Logout"
-                android:textColor="@color/back_bg2"
                 android:textSize="@dimen/twenty"
-                android:fontFamily="@font/poppins_bold">
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black">
 
             </TextView>
 

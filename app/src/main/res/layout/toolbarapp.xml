@@ -23,8 +23,8 @@
             android:layout_marginTop="@dimen/ten"
             android:layout_marginRight="@dimen/five"
             android:onClick="Clickmenu"
-            android:src="@drawable/menu_sort"
-            app:tint="@color/back_bg2">
+            android:src="@drawable/image111"
+            app:tint="@color/white">
 
         </ImageView>
 

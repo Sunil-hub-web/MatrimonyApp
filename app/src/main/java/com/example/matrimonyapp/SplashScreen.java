@@ -47,7 +47,7 @@ public class SplashScreen extends AppCompatActivity {
         BlurImage.withContext(this)
                 .setBlurRadius(3f)
                 .setBitmapScale(0.1f)
-                .blurFromResource(R.drawable.traditonalindianedding)
+                .blurFromResource(R.drawable.login_bg)
                 .into(imageview);
 
         handler.postDelayed(new Runnable() {
