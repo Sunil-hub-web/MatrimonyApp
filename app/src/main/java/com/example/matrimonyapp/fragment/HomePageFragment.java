@@ -1,6 +1,7 @@
 package com.example.matrimonyapp.fragment;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,9 +28,16 @@ import com.example.matrimonyapp.ApiList;
 import com.example.matrimonyapp.LoginActivity;
 import com.example.matrimonyapp.R;
 import com.example.matrimonyapp.adapter.CandidateAdapter;
+import com.example.matrimonyapp.adapter.NewCandidateAdapter;
+import com.example.matrimonyapp.adapter.SliderAdapterExample;
 import com.example.matrimonyapp.adapter.SuccessStoriesAdapter;
+import com.example.matrimonyapp.modelclass.BannerModelClass;
 import com.example.matrimonyapp.modelclass.CandidateDetails_Model;
+import com.example.matrimonyapp.modelclass.NewCandidate_ModelClass;
 import com.example.matrimonyapp.modelclass.SuccessStories_model;
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -45,8 +53,12 @@ public class HomePageFragment extends Fragment {
     ImageView imageview,imageview1;
     TextView text_details,homeAddress,textheader;
     ArrayList<CandidateDetails_Model> candidateDetailsModels = new ArrayList<>();
+    ArrayList<NewCandidate_ModelClass> newCandidateModelClasses = new ArrayList<>();
     ArrayList<SuccessStories_model> successStoriesModels = new ArrayList<>();
-    RecyclerView recyclerRecentProfile,recyclersuccessstories;
+    RecyclerView recyclerRecentProfile,recyclersuccessstories,recyclerNewCandidateProfile;
+    SliderView imageSlider;
+    ArrayList<BannerModelClass> bannerModel = new ArrayList<>();
+    private SliderAdapterExample adapter;
 
     @Nullable
     @Override
@@ -57,10 +69,11 @@ public class HomePageFragment extends Fragment {
 
         imageview = view.findViewById(R.id.imageview);
         text_details = view.findViewById(R.id.text_details);
-        imageview1 = view.findViewById(R.id.imageview1);
         textheader = view.findViewById(R.id.textheader);
         recyclerRecentProfile = view.findViewById(R.id.recyclerRecentProfile);
         recyclersuccessstories = view.findViewById(R.id.recyclersuccessstories);
+        imageSlider = view.findViewById(R.id.imageSlider);
+        recyclerNewCandidateProfile = view.findViewById(R.id.recyclerNewCandidateProfile);
 
        // Picasso.with(getContext()).load("https://collegeprojectz.com/matrimonial//assets/user/img/banner.jpg").into(imageview);
 
@@ -95,6 +108,40 @@ public class HomePageFragment extends Fragment {
                     String cms_data = jsonObject_statues.getString("cms_data");
                     String Success_Stories = jsonObject_statues.getString("Success_Stories");
                     String Allcandidate_data = jsonObject_statues.getString("Allcandidate_data");
+                    String Newcandidate_data = jsonObject_statues.getString("Newcandidate_data");
+
+                    JSONArray jsonArray_banner = new JSONArray(banner_dtl);
+
+                    for (int j=0;j<jsonArray_banner.length();j++){
+
+                        JSONObject jsonObject_banner = jsonArray_banner.getJSONObject(j);
+
+                        String banner_id = jsonObject_banner.getString("banner_id");
+                        String banner_title = jsonObject_banner.getString("banner_title");
+                        String banner_subtitle = jsonObject_banner.getString("banner_subtitle");
+                        String description = jsonObject_banner.getString("description");
+                        String urrl = jsonObject_banner.getString("urrl");
+                        String type = jsonObject_banner.getString("type");
+                        String orderby = jsonObject_banner.getString("orderby");
+                        String image = jsonObject_banner.getString("image");
+
+                        BannerModelClass bannerModelClass = new BannerModelClass(banner_id,banner_title,banner_subtitle,description,
+                                urrl,type,orderby,image);
+                        bannerModel.add(bannerModelClass);
+                    }
+
+                    adapter = new SliderAdapterExample(getActivity(), bannerModel);
+                    imageSlider.setSliderAdapter(adapter);
+                    imageSlider.setIndicatorAnimation(IndicatorAnimationType.DROP); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+                    imageSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+                    imageSlider.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+                    imageSlider.setIndicatorSelectedColor(Color.WHITE);
+                    imageSlider.setIndicatorUnselectedColor(Color.GRAY);
+                    imageSlider.setScrollTimeInSec(3);
+                    imageSlider.setAutoCycle(true);
+                    imageSlider.startAutoCycle();
+
+
 
                     JSONArray jsonArray_cms_data = new JSONArray(cms_data);
 
@@ -106,9 +153,9 @@ public class HomePageFragment extends Fragment {
                         String details = jsonObject1_cms_data.getString("details");
                         String image = jsonObject1_cms_data.getString("image");
 
-                        String url = "https://collegeprojectz.com/matrimonial//uploads/"+image;
+                       // String url = "https://collegeprojectz.com/matrimonial//uploads/"+image;
 
-                         Picasso.with(getContext()).load(url).into(imageview1);
+                        // Picasso.with(getContext()).load(url).into(imageview1);
 
                         textheader.setText(page_name);
                         text_details.setText(details);
@@ -146,6 +193,35 @@ public class HomePageFragment extends Fragment {
                     recyclerRecentProfile.setHasFixedSize(true);
                     recyclerRecentProfile.setAdapter(candidateAdapter);
 
+                    JSONArray jsonArray_Newcandidatedata = new JSONArray(Newcandidate_data);
+
+                    for (int j=0;j<jsonArray_Newcandidatedata.length();j++){
+
+                        JSONObject jsonObject_Newcandidatedata = jsonArray_Newcandidatedata.getJSONObject(j);
+
+                        String id = jsonObject_Newcandidatedata.getString("candidate_id");
+                        String full_name = jsonObject_Newcandidatedata.getString("candidate_name");
+                        String user_id = jsonObject_Newcandidatedata.getString("user_id");
+                        String profi_image = jsonObject_Newcandidatedata.getString("profile_image");
+                        String candidate_name = jsonObject_Newcandidatedata.getString("candidate_name");
+                        String dob = jsonObject_Newcandidatedata.getString("dob");
+                        String gender = jsonObject_Newcandidatedata.getString("gender");
+                       // String candidate_profession_name = jsonObject_Newcandidatedata.getString("candidate_profession_name");
+
+                        NewCandidate_ModelClass newCandidate_modelClass = new NewCandidate_ModelClass(
+                                id,full_name,dob,"",gender,profi_image
+                        );
+
+                        newCandidateModelClasses.add(newCandidate_modelClass);
+                    }
+
+                    LinearLayoutManager linearLayoutManager1 =
+                            new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+                    NewCandidateAdapter newCandidateAdapter = new NewCandidateAdapter(getContext(),newCandidateModelClasses);
+                    recyclerNewCandidateProfile.setLayoutManager(linearLayoutManager1);
+                    recyclerNewCandidateProfile.setHasFixedSize(true);
+                    recyclerNewCandidateProfile.setAdapter(newCandidateAdapter);
+
                     JSONArray jsonArray_Success_Stories = new JSONArray(Success_Stories);
 
                     for (int k=0;k<jsonArray_Success_Stories.length();k++){
@@ -167,10 +243,10 @@ public class HomePageFragment extends Fragment {
                         successStoriesModels.add(successStories_model);
                     }
 
-                    LinearLayoutManager linearLayoutManager1 =
+                    LinearLayoutManager linearLayoutManager2 =
                             new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
                     SuccessStoriesAdapter successStoriesAdapter = new SuccessStoriesAdapter(getContext(),successStoriesModels);
-                    recyclersuccessstories.setLayoutManager(linearLayoutManager1);
+                    recyclersuccessstories.setLayoutManager(linearLayoutManager2);
                     recyclersuccessstories.setHasFixedSize(true);
                     recyclersuccessstories.setAdapter(successStoriesAdapter);
 

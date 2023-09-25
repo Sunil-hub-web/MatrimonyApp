@@ -14,7 +14,10 @@ import android.widget.TextView;
 import com.example.matrimonyapp.fragment.ChangePassword;
 import com.example.matrimonyapp.fragment.FillteViewProfileFragment;
 import com.example.matrimonyapp.fragment.HomePageFragment;
+import com.example.matrimonyapp.fragment.PackageHistoryFragment;
 import com.example.matrimonyapp.fragment.PersonalInformationFrag;
+import com.example.matrimonyapp.fragment.ProfileViewFragment;
+import com.example.matrimonyapp.fragment.SelectedProfileFragment;
 import com.example.matrimonyapp.fragment.ViewProfileActivity;
 import com.google.android.material.navigation.NavigationView;
 
@@ -24,7 +27,7 @@ public class DashBordActivity extends AppCompatActivity implements NavigationVie
     DrawerLayout MyDrawer;
     MasterdataApi masterdataApi;
     TextView nav_Home,nav_Profile,nav_ChangePassword,nav_ViewedProfile,nav_SelectedProfile,nav_PackageHistory,
-            nav_Logout,nav_FindMatch,nav_Register;
+            nav_Logout,nav_FindMatch,nav_Register,text_PageName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class DashBordActivity extends AppCompatActivity implements NavigationVie
 
         navigationview = findViewById(R.id.navigationview);
         MyDrawer = findViewById(R.id.MyDrawer);
+        text_PageName = findViewById(R.id.text_PageName);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         HomePageFragment homePageFragment = new HomePageFragment();
@@ -64,6 +68,8 @@ public class DashBordActivity extends AppCompatActivity implements NavigationVie
                 ft.replace(R.id.framLayout, homePageFragment,"HomeFragment");
                 ft.addToBackStack(null);
                 ft.commit();
+
+                text_PageName.setText("Home");
             }
         });
 
@@ -79,6 +85,8 @@ public class DashBordActivity extends AppCompatActivity implements NavigationVie
                 ft.addToBackStack(null);
                 ft.commit();
 
+                text_PageName.setText("Profile");
+
             }
         });
 
@@ -93,6 +101,8 @@ public class DashBordActivity extends AppCompatActivity implements NavigationVie
                 ft.replace(R.id.framLayout, fillteViewProfileFragment,"FillteViewProfileFragment");
                 ft.addToBackStack(null);
                 ft.commit();
+
+                text_PageName.setText("FindMatch");
             }
         });
 
@@ -110,6 +120,8 @@ public class DashBordActivity extends AppCompatActivity implements NavigationVie
                 ft.replace(R.id.framLayout, personalInformationFrag);
                 ft.addToBackStack(null);
                 ft.commit();
+
+                text_PageName.setText("Personal Information");
             }
         });
 
@@ -124,6 +136,56 @@ public class DashBordActivity extends AppCompatActivity implements NavigationVie
                 ft.replace(R.id.framLayout, changePassword,"ChangePassword");
                 ft.addToBackStack(null);
                 ft.commit();
+
+                text_PageName.setText("Change Password");
+            }
+        });
+
+        nav_ViewedProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                MyDrawer.closeDrawer(GravityCompat.START);
+
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ProfileViewFragment profileViewFragment = new ProfileViewFragment();
+                ft.replace(R.id.framLayout, profileViewFragment,"ProfileViewFragment");
+                ft.addToBackStack(null);
+                ft.commit();
+
+                text_PageName.setText("Viewed Profile");
+            }
+        });
+
+        nav_SelectedProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                MyDrawer.closeDrawer(GravityCompat.START);
+
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                SelectedProfileFragment selectedProfileFragment = new SelectedProfileFragment();
+                ft.replace(R.id.framLayout, selectedProfileFragment,"SelectedProfileFragment");
+                ft.addToBackStack(null);
+                ft.commit();
+
+                text_PageName.setText("Selected Profile");
+            }
+        });
+
+        nav_PackageHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                MyDrawer.closeDrawer(GravityCompat.START);
+
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                PackageHistoryFragment packageHistoryFragment = new PackageHistoryFragment();
+                ft.replace(R.id.framLayout, packageHistoryFragment,"PackageHistoryFragment");
+                ft.addToBackStack(null);
+                ft.commit();
+
+                text_PageName.setText("Package History");
             }
         });
 

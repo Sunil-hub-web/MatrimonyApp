@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +19,7 @@ import com.example.matrimonyapp.R;
 import com.example.matrimonyapp.SessionManager;
 import com.example.matrimonyapp.fragment.SingleViewProfile;
 import com.example.matrimonyapp.modelclass.CandidateDetails_Model;
+import com.example.matrimonyapp.modelclass.ProfileSelected_ModelClass;
 import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
 
@@ -26,66 +28,40 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.ViewHolder> {
+public class ViewProfileSelectedAdapter extends RecyclerView.Adapter<ViewProfileSelectedAdapter.ViewHolder> {
 
+    ArrayList<ProfileSelected_ModelClass> profileSelectedMode;
     Context context;
-    ArrayList<CandidateDetails_Model> candidateDetailsModels;
     SessionManager sessionManager;
-    public CandidateAdapter(Context context, ArrayList<CandidateDetails_Model> candidateDetailsModels) {
 
-        this.context = context;
-        this.candidateDetailsModels = candidateDetailsModels;
+    public ViewProfileSelectedAdapter(FragmentActivity activity, ArrayList<ProfileSelected_ModelClass> profileSelectedMode) {
+
+        this.context = activity;
+        this.profileSelectedMode = profileSelectedMode;
 
     }
 
     @NonNull
     @Override
-    public CandidateAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewProfileSelectedAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.candaditedetails,parent,false);
-        return new ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.selectviewprofile,parent,false);
+        return new ViewProfileSelectedAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CandidateAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewProfileSelectedAdapter.ViewHolder holder, int position) {
 
         sessionManager = new SessionManager(context);
 
-        CandidateDetails_Model candidate = candidateDetailsModels.get(position);
+        ProfileSelected_ModelClass candidate = profileSelectedMode.get(position);
 
-        if (candidate.getImage().equals("null")){
+        String url = "https://collegeprojectz.com/matrimonial//uploads/"+candidate.getProfile_image();
+        Picasso.with(context).load(url).into(holder.imag_uniform);
 
-            holder.imag_uniform.setImageResource(R.drawable.domyprofileimage);
-
-        }else{
-
-            String url = "https://collegeprojectz.com/matrimonial//uploads/"+candidate.getImage();
-            Picasso.with(context).load(url).into(holder.imag_uniform);
-        }
-
-
-
-        holder.textname.setText(candidate.getName());
-        holder.textdenigation.setText(candidate.getProfession_name());
+        holder.textname.setText(candidate.getCandidate_name());
         holder.textgender.setText(candidate.getGender());
-
-        String nullvaluev = String.valueOf(candidate.getAge());
-
-        if (!nullvaluev.equals("null")){
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                LocalDate localDate1 = LocalDate.parse(candidate.getAge());
-                Date date = new Date();
-                SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd");
-                String str = formatter.format(date);
-
-                LocalDate localDate2 = LocalDate.parse(str);
-
-                int yearage = Period.between(localDate1, localDate2).getYears();
-
-                holder.textage.setText(String.valueOf(yearage)+"year");
-            }
-        }
+        holder.textlocation.setText(candidate.getCountry_name());
 
         holder.btn_ViewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +70,7 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.View
                 SingleViewProfile singleViewProfile = new SingleViewProfile();
                 Bundle bundle = new Bundle();
                 bundle.putString("userId", sessionManager.getUSERID());
-                bundle.putString("profileId",candidate.getId());
+                bundle.putString("profileId",candidate.getProfile_id());
                 bundle.putString("message","Homeprofile");
                 singleViewProfile.setArguments(bundle);
                 FragmentTransaction transaction =((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
@@ -108,23 +84,23 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.View
 
     @Override
     public int getItemCount() {
-        return candidateDetailsModels.size();
+        return profileSelectedMode.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imag_uniform;
-        TextView textname,textdenigation,textgender,textage;
+        TextView textname,textgender,textlocation;
         MaterialButton btn_ViewProfile;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imag_uniform = itemView.findViewById(R.id.imag_uniform);
             textname = itemView.findViewById(R.id.textname);
-            textdenigation = itemView.findViewById(R.id.textdenigation);
             textgender = itemView.findViewById(R.id.textgender);
-            textage = itemView.findViewById(R.id.textage);
             btn_ViewProfile = itemView.findViewById(R.id.btn_ViewProfile);
+            textlocation = itemView.findViewById(R.id.textlocation);
         }
     }
 }

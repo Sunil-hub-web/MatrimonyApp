@@ -24,7 +24,8 @@
             android:layout_marginRight="@dimen/five"
             android:onClick="Clickmenu"
             android:src="@drawable/image111"
-            app:tint="@color/white">
+            app:tint="@color/white"
+            android:layout_centerVertical="true">
 
         </ImageView>
 
@@ -92,18 +93,18 @@
 
             </ImageView>-->
 
-           <!-- <TextView
-                android:id="@+id/text_AddressName"
+            <TextView
+                android:id="@+id/text_PageName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/twenty"
                 android:layout_marginTop="@dimen/ten"
-                android:fontFamily="@font/sans_bold"
+                android:fontFamily="@font/poppins_bold"
                 android:text="Home"
                 android:textColor="#22647E"
                 android:textSize="@dimen/textsize"
-                android:textStyle="bold"></TextView>-->
+                android:textStyle="bold"></TextView>
 
             <!--  <TextView
                 android:id="@+id/text_address"

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/ten"
+        android:layout_margin="@dimen/ten">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:id="@+id/first"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/autocomplate_bg"
+                android:elevation="@dimen/ten">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/hundred_twenty"
+                    app:cardCornerRadius="@dimen/fifteen"
+                    android:id="@+id/cardView_image"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp">
+
+                    <ImageView
+                        android:id="@+id/imag_uniform"
+                        android:layout_width="@dimen/hundred"
+                        android:layout_height="@dimen/hundred_twenty"
+                        android:scaleType="fitXY" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/fifteen"
+                    android:layout_marginTop="@dimen/ten"
+                    android:layout_toRightOf="@id/cardView_image"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textgender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textname"
+                    android:layout_marginLeft="@dimen/fifteen"
+                    android:layout_marginTop="@dimen/seven"
+                    android:layout_toRightOf="@id/cardView_image"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/twelve"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_medium"/>
+
+                <TextView
+                    android:id="@+id/textlocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textgender"
+                    android:layout_marginLeft="@dimen/fifteen"
+                    android:layout_marginTop="@dimen/seven"
+                    android:layout_toRightOf="@id/cardView_image"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/twelve"
+                    android:drawableLeft="@drawable/baseline_location_on"
+                    android:drawablePadding="@dimen/fifteen"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_medium"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_below="@+id/textlocation"
+                    android:layout_toRightOf="@id/cardView_image">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_ViewProfile"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        app:cornerRadius="@dimen/ten"
+                        android:padding="@dimen/three"
+                        android:text="View Profile"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_margin="@dimen/three"
+                        app:backgroundTint="@color/bs_pink">
+
+                    </com.google.android.material.button.MaterialButton>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_SelectedProfile"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/three"
+                        app:cornerRadius="@dimen/ten"
+                        android:layout_margin="@dimen/three"
+                        android:text="Select"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/back_bg">
+
+                    </com.google.android.material.button.MaterialButton>
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

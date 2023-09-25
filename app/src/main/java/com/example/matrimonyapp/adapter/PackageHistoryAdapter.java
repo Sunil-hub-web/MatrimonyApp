@@ -1,6 +1,7 @@
 package com.example.matrimonyapp.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,14 +40,14 @@ public class PackageHistoryAdapter extends RecyclerView.Adapter<PackageHistoryAd
 
         PackageHistoryModel packagepr = packageHistoryModels.get(position);
 
-        holder.packageName.setText("<font color='#6c757d'>PackageName :<br></font>"+packagepr.getPack_name());
-        holder.candidateName.setText("<font color='#6c757d'>CandidateName :<br></font>"+packagepr.getCandidate_name());
-        holder.packageDescription.setText("<font color='#6c757d'>PackageDescription :<br></font>"+packagepr.getPack_description());
-        holder.activeDay.setText("<font color='#6c757d'>ActiveDay :<br></font>"+packagepr.getPack_activeday());
-        holder.packageProfile.setText("<font color='#6c757d'>PackageProfile :<br></font>"+packagepr.getNo_of_profile());
-        holder.packagePrice.setText("<font color='#6c757d'>PackagePrice :<br></font>"+packagepr.getPack_price());
-        holder.packageActiveDate.setText("<font color='#6c757d'>PackageActiveDate :<br></font>"+packagepr.getPackageactive_date());
-        holder.packageExpiryDate.setText("<font color='#6c757d'>PackageExpiryDate :<br></font>"+packagepr.getPackageexpiry_date());
+        holder.packageName.setText(Html.fromHtml("<font color='#6c757d'>PackageName :<br></font>"+packagepr.getPack_name()));
+        holder.candidateName.setText(Html.fromHtml("<font color='#6c757d'>CandidateName :<br></font>"+packagepr.getCandidate_name()));
+        holder.packageDescription.setText(Html.fromHtml("<font color='#6c757d'>PackageDescription :<br></font>"+packagepr.getPack_description()));
+        holder.activeDay.setText(Html.fromHtml("<font color='#6c757d'>ActiveDay :<br></font>"+packagepr.getPack_activeday()));
+        holder.packageProfile.setText(Html.fromHtml("<font color='#6c757d'>PackageProfile :<br></font>"+packagepr.getNo_of_profile()));
+        holder.packagePrice.setText(Html.fromHtml("<font color='#6c757d'>PackagePrice :<br></font>"+packagepr.getPack_price()));
+        holder.packageActiveDate.setText(Html.fromHtml("<font color='#6c757d'>PackageActiveDate :<br></font>"+packagepr.getPackageactive_date()));
+        holder.packageExpiryDate.setText(Html.fromHtml("<font color='#6c757d'>PackageExpiryDate :<br></font>"+packagepr.getPackageexpiry_date()));
 
     }
 

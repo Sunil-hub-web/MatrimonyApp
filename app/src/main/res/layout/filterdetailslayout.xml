@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F388BD">
+    android:background="#F388BD"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -249,19 +250,27 @@
                     android:background="@drawable/edit_back"
                     android:padding="@dimen/ten">
 
-                    <Spinner
-                        android:id="@+id/spinnerEducation"
+                    <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:minHeight="0dp"
-                        android:textSize="@dimen/textsize" />
+                        android:id="@+id/recyclerEduction">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/arrow_drop_down" />
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+<!--                    <Spinner-->
+<!--                        android:id="@+id/spinnerEducation"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@null"-->
+<!--                        android:minHeight="0dp"-->
+<!--                        android:textSize="@dimen/textsize" />-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:src="@drawable/arrow_drop_down" />-->
 
                 </RelativeLayout>
 
@@ -277,14 +286,35 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/twenty" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/five"
                     android:background="@drawable/edit_back"
-                    android:padding="@dimen/ten">
+                    android:padding="@dimen/ten"
+                    android:orientation="vertical">
 
-                    <Spinner
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/five"
+                        android:layout_marginTop="@dimen/five"
+                        android:layout_marginEnd="@dimen/five"
+                        android:layout_marginBottom="@dimen/five"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Body Type"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textsize" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/recyclerBodyType">
+
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                   <!-- <Spinner
                         android:id="@+id/spinnerBodyType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -296,18 +326,40 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:src="@drawable/arrow_drop_down" />
+                        android:src="@drawable/arrow_drop_down" />-->
 
-                </RelativeLayout>
+                </LinearLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/five"
                     android:background="@drawable/edit_back"
-                    android:padding="@dimen/ten">
+                    android:padding="@dimen/ten"
+                    android:orientation="vertical">
 
-                    <Spinner
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/five"
+                        android:layout_marginTop="@dimen/five"
+                        android:layout_marginEnd="@dimen/five"
+                        android:layout_marginBottom="@dimen/five"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Complexion"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textsize" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/recyclerComplexion">
+
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                   <!-- <Spinner
                         android:id="@+id/spinnerComplexion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -319,9 +371,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:src="@drawable/arrow_drop_down" />
+                        android:src="@drawable/arrow_drop_down" />-->
 
-                </RelativeLayout>
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -332,37 +384,79 @@
                     android:textSize="@dimen/twenty"
                     android:fontFamily="@font/poppins_bold"/>
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/five"
                     android:background="@drawable/edit_back"
-                    android:padding="@dimen/ten">
+                    android:padding="@dimen/ten"
+                    android:orientation="vertical">
 
-                    <Spinner
-                        android:id="@+id/spinnerRashi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:minHeight="0dp"
-                        android:textSize="@dimen/textsize" />
-
-                    <ImageView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/arrow_drop_down" />
+                        android:layout_marginStart="@dimen/five"
+                        android:layout_marginTop="@dimen/five"
+                        android:layout_marginEnd="@dimen/five"
+                        android:layout_marginBottom="@dimen/five"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Rashi"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textsize" />
 
-                </RelativeLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/recyclerRashi">
 
-                <RelativeLayout
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+<!--                    <Spinner-->
+<!--                        android:id="@+id/spinnerRashi"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@null"-->
+<!--                        android:minHeight="0dp"-->
+<!--                        android:textSize="@dimen/textsize" />-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:src="@drawable/arrow_drop_down" />-->
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/five"
                     android:background="@drawable/edit_back"
-                    android:padding="@dimen/ten">
+                    android:padding="@dimen/ten"
+                    android:orientation="vertical">
 
-                    <Spinner
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/five"
+                        android:layout_marginTop="@dimen/five"
+                        android:layout_marginEnd="@dimen/five"
+                        android:layout_marginBottom="@dimen/five"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Gotra"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textsize" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/recyclerGotra">
+
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                   <!-- <Spinner
                         android:id="@+id/spinnerGotra"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -374,55 +468,143 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:src="@drawable/arrow_drop_down" />
+                        android:src="@drawable/arrow_drop_down" />-->
 
-                </RelativeLayout>
+                </LinearLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/five"
                     android:background="@drawable/edit_back"
-                    android:padding="@dimen/ten">
+                    android:padding="@dimen/ten"
+                    android:orientation="vertical">
 
-                    <Spinner
-                        android:id="@+id/spinnerStar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:minHeight="0dp"
-                        android:textSize="@dimen/textsize" />
-
-                    <ImageView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/arrow_drop_down" />
+                        android:layout_marginStart="@dimen/five"
+                        android:layout_marginTop="@dimen/five"
+                        android:layout_marginEnd="@dimen/five"
+                        android:layout_marginBottom="@dimen/five"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Star"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textsize" />
 
-                </RelativeLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/recyclerStar">
 
-                <RelativeLayout
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+<!--                    <Spinner-->
+<!--                        android:id="@+id/spinnerStar"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@null"-->
+<!--                        android:minHeight="0dp"-->
+<!--                        android:textSize="@dimen/textsize" />-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:src="@drawable/arrow_drop_down" />-->
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/five"
                     android:background="@drawable/edit_back"
-                    android:padding="@dimen/ten">
+                    android:padding="@dimen/ten"
+                    android:orientation="vertical">
 
-                    <Spinner
-                        android:id="@+id/spinnerLagna"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:minHeight="0dp"
-                        android:textSize="@dimen/textsize" />
-
-                    <ImageView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/arrow_drop_down" />
+                        android:layout_marginStart="@dimen/five"
+                        android:layout_marginTop="@dimen/five"
+                        android:layout_marginEnd="@dimen/five"
+                        android:layout_marginBottom="@dimen/five"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Lagna"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textsize" />
 
-                </RelativeLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/recyclerLagna">
+
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+<!--                    <Spinner-->
+<!--                        android:id="@+id/spinnerLagna"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@null"-->
+<!--                        android:minHeight="0dp"-->
+<!--                        android:textSize="@dimen/textsize" />-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:src="@drawable/arrow_drop_down" />-->
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_YourMatch"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/ten"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="@dimen/ten"
+                        android:layout_marginBottom="10dp"
+                        android:padding="@dimen/ten"
+                        android:text="Filter Your Match"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/bs_red">
+
+                    </com.google.android.material.button.MaterialButton>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_Cancel"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/ten"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="@dimen/ten"
+                        android:layout_marginBottom="10dp"
+                        android:padding="@dimen/ten"
+                        android:text="Cancel"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/bs_red">
+
+                    </com.google.android.material.button.MaterialButton>
+
+                </LinearLayout>
+
+
 
             </LinearLayout>
 
@@ -430,7 +612,7 @@
         </RelativeLayout>
 
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
 

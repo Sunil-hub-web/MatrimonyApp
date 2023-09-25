@@ -5,10 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="@dimen/two_hundred"
+        android:layout_width="@dimen/hundred_fifty"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/ten"
-        android:layout_margin="@dimen/ten">
+        android:layout_margin="@dimen/five">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -17,85 +17,94 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/hundred_eighty"
+                android:layout_height="@dimen/hundred_twenty"
                 android:id="@+id/relImageClick">
 
                 <ImageView
                     android:id="@+id/imag_uniform"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/bannerimage"
-                    android:scaleType="fitXY"/>
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bannerimage" />
 
             </RelativeLayout>
-
-            <TextView
-                android:id="@+id/textname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/ten"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textsize"
-                android:textStyle="bold"
-                android:layout_margin="@dimen/five">
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/textdenigation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/ten"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textsize"
-                android:textStyle="bold"
-                android:layout_margin="@dimen/five">
-
-            </TextView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="2"
+                android:orientation="vertical"
                 android:layout_margin="@dimen/five">
 
                 <TextView
-                    android:id="@+id/textgender"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:id="@+id/textname"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/textsize"
+                    android:textSize="@dimen/thirteen"
+                    android:fontFamily="@font/poppins_regular"
                     android:textStyle="bold">
 
                 </TextView>
 
                 <TextView
-                    android:id="@+id/textage"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:id="@+id/textdenigation"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/textsize"
+                    android:textSize="@dimen/thirteen"
+                    android:fontFamily="@font/poppins_regular"
                     android:textStyle="bold">
 
                 </TextView>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/textgender"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="@dimen/thirteen"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/textage"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="@dimen/thirteen"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                </LinearLayout>
+
             </LinearLayout>
+
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_ViewProfile"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/ten"
-                android:layout_marginTop="@dimen/ten"
-                android:layout_marginRight="@dimen/ten"
-                android:layout_marginBottom="10dp"
-                android:padding="@dimen/ten"
+                android:layout_height="@dimen/forty"
+                android:layout_margin="@dimen/five"
                 app:cornerRadius="@dimen/ten"
                 android:text="View Profile"
                 android:textColor="@color/white"
-                android:textSize="15dp"
+                android:textSize="@dimen/twelve_size"
                 android:textStyle="bold"
                 app:backgroundTint="@color/back_bg1">
 

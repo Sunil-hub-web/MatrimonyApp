@@ -23,7 +23,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -36,8 +38,14 @@ import com.android.volley.toolbox.Volley;
 import com.example.matrimonyapp.ApiList;
 import com.example.matrimonyapp.R;
 import com.example.matrimonyapp.SessionManager;
+import com.example.matrimonyapp.adapter.BodyTypeCheckAdapter;
 import com.example.matrimonyapp.adapter.CandidateAdapter;
-import com.example.matrimonyapp.adapter.SuccessStoriesAdapter;
+import com.example.matrimonyapp.adapter.ComplexionCheckAdapter;
+import com.example.matrimonyapp.adapter.EductionCheckAdapter;
+import com.example.matrimonyapp.adapter.GotraCheckAdapter;
+import com.example.matrimonyapp.adapter.LagnaCheckAdapter;
+import com.example.matrimonyapp.adapter.RashiCheckAdapter;
+import com.example.matrimonyapp.adapter.StarCheckAdapter;
 import com.example.matrimonyapp.databinding.FindmatchFragmentBinding;
 import com.example.matrimonyapp.modelclass.BodyTypeModel;
 import com.example.matrimonyapp.modelclass.CandidateDetails_Model;
@@ -53,6 +61,7 @@ import com.example.matrimonyapp.modelclass.ReligionDataModel;
 import com.example.matrimonyapp.modelclass.StarModel;
 import com.example.matrimonyapp.modelclass.StatesModel;
 import com.example.matrimonyapp.modelclass.SuccessStories_model;
+import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -68,27 +77,29 @@ public class FillteViewProfileFragment extends Fragment {
     FindmatchFragmentBinding binding;
     Dialog dialogConfirm;
     RadioGroup radioGroupGender;
-    Spinner spinnerCountry,spinnerState,spinnerDistrict,spinnerCity,spinnerReligion,spinnerEducation,
-            spinnerBodyType,spinnerComplexion,spinnerRashi,spinnerGotra,spinnerStar,spinnerLagna;
+    Spinner spinnerCountry,spinnerState,spinnerDistrict,spinnerCity,spinnerReligion;
+           // spinnerEducation,spinnerBodyType,spinnerComplexion,spinnerRashi,spinnerGotra,spinnerStar,spinnerLagna;
+    RecyclerView recyclerEduction,recyclerBodyType,recyclerComplexion,recyclerRashi,recyclerGotra,recyclerStar,
+                   recyclerLagna;
     EditText edit_MinAge,edit_MaxAge;
     ArrayList<LocationDataModel> locationDataModels;
-    ArrayList<String> Country_Name;
+    ArrayList<String> Country_Name = new ArrayList<>();
     Map<String, String> Country_Map;
 
     ArrayList<StatesModel> statesModels;
-    ArrayList<String> State_Name;
+    ArrayList<String> State_Name = new ArrayList<>();
     Map<String, String> State_Map;
 
     ArrayList<DistrictsModel> districtsModels;
-    ArrayList<String> District_Name;
+    ArrayList<String> District_Name = new ArrayList<>();
     Map<String, String> District_Map;
 
     ArrayList<CitiesModel> citiesModels;
-    ArrayList<String> City_Name;
+    ArrayList<String> City_Name = new ArrayList<>();
     Map<String, String> City_Map;
 
     ArrayList<ReligionDataModel> religionDataModels;
-    ArrayList<String> nameReligion;
+    ArrayList<String> nameReligion = new ArrayList<>();
     HashMap<String,String> mapReligion;
 
     ArrayList<EducationModel> educationModels;
@@ -102,8 +113,8 @@ public class FillteViewProfileFragment extends Fragment {
     ArrayList<String> complexion_Name;
     Map<String,String> complexion_Map;
     String CountryName,CountryId,StateName,StateId,DistrictName,DistrictId,CityName,CityId,userId,
-            genderName,rashi_Name,rashiId,gotra_Name,gotraId,lagna_Name,lagnaId,star_Name,starId,bodyTypeName,
-            bodyTypeId,complexionName,complexionid,educationName,educationId,religionId,religionName;
+            genderName,rashi_Name,rashiId = "",gotra_Name,gotraId = "",lagna_Name,lagnaId = "",star_Name,starId = "",bodyTypeName,
+            bodyTypeId = "",complexionName,complexionid = "",educationName,educationId = "",religionId,religionName;
     SessionManager sessionManager;
     RadioButton selectedRadioButton;
     ArrayList<RashiModel> rashiModels;
@@ -118,9 +129,26 @@ public class FillteViewProfileFragment extends Fragment {
     ArrayList<StarModel> starModels;
     ArrayList<String> starName;
     HashMap<String,String> starMap;
-
     ArrayList<CandidateDetails_Model> candidateDetailsModels = new ArrayList<>();
 
+    EductionCheckAdapter eductionCheckAdapter;
+    ComplexionCheckAdapter complexionCheckAdapter;
+    BodyTypeCheckAdapter bodyTypeCheckAdapter;
+    GotraCheckAdapter gotraCheckAdapter;
+    LagnaCheckAdapter lagnaCheckAdapter;
+    StarCheckAdapter starCheckAdapter;
+    RashiCheckAdapter rashiCheckAdapter;
+    LinearLayoutManager linearLayoutManager1,linearLayoutManager2,linearLayoutManager3,linearLayoutManager4,
+            linearLayoutManager5,linearLayoutManager6,linearLayoutManager7;
+
+     ArrayList<String> dataList_Eduction = new ArrayList<>();
+     ArrayList<String> dataList_Complexion = new ArrayList<>();
+     ArrayList<String> dataList_BodyType = new ArrayList<>();
+     ArrayList<String> dataList_Gotra = new ArrayList<>();
+     ArrayList<String> dataList_Lagna = new ArrayList<>();
+     ArrayList<String> dataList_Star = new ArrayList<>();
+     ArrayList<String> dataList_Rashi = new ArrayList<>();
+     MaterialButton btn_YourMatch,btn_Cancel;
 
     @Nullable
     @Override
@@ -132,7 +160,17 @@ public class FillteViewProfileFragment extends Fragment {
 
         sessionManager = new SessionManager(getActivity());
         userId = sessionManager.getUSERID();
-        viewSingleprofile("136");
+        viewSingleprofile(userId);
+        masterApiList1();
+
+        binding.textFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getFiltearDetails();
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -153,18 +191,27 @@ public class FillteViewProfileFragment extends Fragment {
         spinnerDistrict = dialogConfirm.findViewById(R.id.spinnerDistrict);
         spinnerCity = dialogConfirm.findViewById(R.id.spinnerCity);
         spinnerReligion = dialogConfirm.findViewById(R.id.spinnerReligion);
-        spinnerEducation = dialogConfirm.findViewById(R.id.spinnerEducation);
-        spinnerBodyType = dialogConfirm.findViewById(R.id.spinnerBodyType);
-        spinnerComplexion = dialogConfirm.findViewById(R.id.spinnerComplexion);
-        spinnerRashi = dialogConfirm.findViewById(R.id.spinnerRashi);
-        spinnerGotra = dialogConfirm.findViewById(R.id.spinnerGotra);
-        spinnerStar = dialogConfirm.findViewById(R.id.spinnerStar);
-        spinnerLagna = dialogConfirm.findViewById(R.id.spinnerLagna);
+
+        //spinnerEducation = dialogConfirm.findViewById(R.id.spinnerEducation);
+       //spinnerBodyType = dialogConfirm.findViewById(R.id.spinnerBodyType);
+       //spinnerComplexion = dialogConfirm.findViewById(R.id.spinnerComplexion);
+       //spinnerRashi = dialogConfirm.findViewById(R.id.spinnerRashi);
+      // spinnerGotra = dialogConfirm.findViewById(R.id.spinnerGotra);
+        // spinnerStar = dialogConfirm.findViewById(R.id.spinnerStar);
+     //spinnerLagna = dialogConfirm.findViewById(R.id.spinnerLagna);
+
+        recyclerEduction = dialogConfirm.findViewById(R.id.recyclerEduction);
+        recyclerBodyType = dialogConfirm.findViewById(R.id.recyclerBodyType);
+        recyclerComplexion = dialogConfirm.findViewById(R.id.recyclerComplexion);
+        recyclerRashi = dialogConfirm.findViewById(R.id.recyclerRashi);
+        recyclerGotra = dialogConfirm.findViewById(R.id.recyclerGotra);
+        recyclerStar = dialogConfirm.findViewById(R.id.recyclerStar);
+        recyclerLagna = dialogConfirm.findViewById(R.id.recyclerLagna);
         edit_MinAge = dialogConfirm.findViewById(R.id.edit_MinAge);
         edit_MaxAge = dialogConfirm.findViewById(R.id.edit_MaxAge);
         radioGroupGender = dialogConfirm.findViewById(R.id.radioGroupGender);
-
-        masterApiList1();
+        btn_YourMatch = dialogConfirm.findViewById(R.id.btn_YourMatch);
+        btn_Cancel = dialogConfirm.findViewById(R.id.btn_Cancel);
 
 
         Country_Name.add(0, "Select Country");
@@ -202,54 +249,179 @@ public class FillteViewProfileFragment extends Fragment {
         nameReligionAdapter.setDropDownViewResource(R.layout.spinneritem);
         spinnerReligion.setAdapter(nameReligionAdapter);
 
-        education_Name.add(0, "Select Eduction");
+//        education_Name.add(0, "Select Eduction");
 
-        ArrayAdapter<String> educationyAdapter = new ArrayAdapter<String>(getContext(),
-                R.layout.spinnerfront2, education_Name);
-        educationyAdapter.setDropDownViewResource(R.layout.spinneritem);
-        spinnerEducation.setAdapter(educationyAdapter);
+        linearLayoutManager1 = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        eductionCheckAdapter = new EductionCheckAdapter(educationModels,getActivity());
+        recyclerEduction.setLayoutManager(linearLayoutManager1);
+        recyclerEduction.setHasFixedSize(true);
+        recyclerEduction.setAdapter(eductionCheckAdapter);
 
-        bodyType_Name.add(0, "Select BodyType");
+        linearLayoutManager2 = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        complexionCheckAdapter = new ComplexionCheckAdapter(complexionModels,getActivity());
+        recyclerComplexion.setLayoutManager(linearLayoutManager2);
+        recyclerComplexion.setHasFixedSize(true);
+        recyclerComplexion.setAdapter(complexionCheckAdapter);
 
-        ArrayAdapter<String> gotratyAdapter = new ArrayAdapter<String>(getContext(),
-                R.layout.spinnerfront2, bodyType_Name);
-        gotratyAdapter.setDropDownViewResource(R.layout.spinneritem);
-        spinnerBodyType.setAdapter(gotratyAdapter);
+        linearLayoutManager3 = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        bodyTypeCheckAdapter = new BodyTypeCheckAdapter(bodyTypeModels,getActivity());
+        recyclerBodyType.setLayoutManager(linearLayoutManager3);
+        recyclerBodyType.setHasFixedSize(true);
+        recyclerBodyType.setAdapter(bodyTypeCheckAdapter);
 
-        complexion_Name.add(0, "Select Complexion");
+        linearLayoutManager4 = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        gotraCheckAdapter = new GotraCheckAdapter(gotraModels,getActivity());
+        recyclerGotra.setLayoutManager(linearLayoutManager4);
+        recyclerGotra.setHasFixedSize(true);
+        recyclerGotra.setAdapter(gotraCheckAdapter);
 
-        ArrayAdapter<String> lagnayAdapter = new ArrayAdapter<String>(getContext(),
-                R.layout.spinnerfront2, complexion_Name);
-        lagnayAdapter.setDropDownViewResource(R.layout.spinneritem);
-        spinnerComplexion.setAdapter(lagnayAdapter);
+        linearLayoutManager5 = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        lagnaCheckAdapter = new LagnaCheckAdapter(lagnaModels,getActivity());
+        recyclerLagna.setLayoutManager(linearLayoutManager5);
+        recyclerLagna.setHasFixedSize(true);
+        recyclerLagna.setAdapter(lagnaCheckAdapter);
 
-        starName.add(0, "Select Star");
+        linearLayoutManager6 = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        starCheckAdapter = new StarCheckAdapter(starModels,getActivity());
+        recyclerStar.setLayoutManager(linearLayoutManager6);
+        recyclerStar.setHasFixedSize(true);
+        recyclerStar.setAdapter(starCheckAdapter);
 
-        ArrayAdapter<String> staryAdapter = new ArrayAdapter<String>(getContext(),
-                R.layout.spinnerfront2, starName);
-        staryAdapter.setDropDownViewResource(R.layout.spinneritem);
-        spinnerStar.setAdapter(staryAdapter);
+        linearLayoutManager7 = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        rashiCheckAdapter = new RashiCheckAdapter(rashiModels,getActivity());
+        recyclerRashi.setLayoutManager(linearLayoutManager7);
+        recyclerRashi.setHasFixedSize(true);
+        recyclerRashi.setAdapter(rashiCheckAdapter);
 
-        rashiName.add(0, "Select Rashi");
+        dataList_Eduction = eductionCheckAdapter.showdata();
+        dataList_Complexion = complexionCheckAdapter.showdata();
+        dataList_BodyType = bodyTypeCheckAdapter.showdata();
+        dataList_Gotra = gotraCheckAdapter.showdata();
+        dataList_Lagna = lagnaCheckAdapter.showdata();
+        dataList_Star = starCheckAdapter.showdata();
+        dataList_Rashi = rashiCheckAdapter.showdata();
 
-        ArrayAdapter<String> nationalityAdapter4 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinnerfront2, rashiName);
-        nationalityAdapter4.setDropDownViewResource(R.layout.spinneritem);
-        spinnerRashi.setAdapter(nationalityAdapter4);
+        if(dataList_Eduction.size() != 0){
 
-        gotraName.add(0, "Select Gotra");
+            educationId = dataList_Eduction.toString();
+            educationId = educationId.replace("[", "")
+                    .replace("]", "")
+                    .replace(" ", "");
 
-        ArrayAdapter<String> gotratyAdapter1 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinnerfront2, gotraName);
-        gotratyAdapter1.setDropDownViewResource(R.layout.spinneritem);
-        spinnerGotra.setAdapter(gotratyAdapter1);
+            Log.d("areadet","eductiondet"+educationId);
 
-        lagnaName.add(0, "Select Lagna");
+        }
 
-        ArrayAdapter<String> lagnayAdapter5 = new ArrayAdapter<String>(getContext(),
-                R.layout.spinnerfront2, lagnaName);
-        lagnayAdapter5.setDropDownViewResource(R.layout.spinneritem);
-        spinnerLagna.setAdapter(lagnayAdapter5);
+        if(dataList_Complexion.size() != 0){
+
+            complexionid = dataList_Complexion.toString();
+            complexionid = complexionid.replace("[", "")
+                    .replace("]", "")
+                    .replace(" ", "");
+
+            Log.d("areadet","complexionid"+complexionid);
+        }
+
+        if(dataList_BodyType.size() != 0){
+
+            bodyTypeId = dataList_BodyType.toString();
+            bodyTypeId = bodyTypeId.replace("[", "")
+                    .replace("]", "")
+                    .replace(" ", "");
+
+            Log.d("areadet","bodyTypeId"+bodyTypeId);
+        }
+
+        if(dataList_Gotra.size() != 0){
+
+            gotraId = dataList_Gotra.toString();
+            gotraId = gotraId.replace("[", "")
+                    .replace("]", "")
+                    .replace(" ", "");
+
+            Log.d("areadet","gotraId"+gotraId);
+        }
+
+        if(dataList_Lagna.size() != 0){
+
+            lagnaId = dataList_Lagna.toString();
+            lagnaId = lagnaId.replace("[", "")
+                    .replace("]", "")
+                    .replace(" ", "");
+
+            Log.d("areadet","lagnaId"+lagnaId);
+        }
+
+        if(dataList_Star.size() != 0){
+
+            starId = dataList_Star.toString();
+            starId = starId.replace("[", "")
+                    .replace("]", "")
+                    .replace(" ", "");
+
+            Log.d("areadet","starId"+starId);
+        }
+
+        if(dataList_Rashi.size() != 0){
+
+            rashiId = dataList_Rashi.toString();
+            rashiId = rashiId.replace("[", "")
+                    .replace("]", "")
+                    .replace(" ", "");
+
+            Log.d("areadet","rashiId"+rashiId);
+        }
+
+
+
+
+
+//        ArrayAdapter<String> educationyAdapter = new ArrayAdapter<String>(getContext(),
+//                R.layout.spinnerfront2, education_Name);
+//        educationyAdapter.setDropDownViewResource(R.layout.spinneritem);
+//        spinnerEducation.setAdapter(educationyAdapter);
+//
+//        bodyType_Name.add(0, "Select BodyType");
+//
+//        ArrayAdapter<String> gotratyAdapter = new ArrayAdapter<String>(getContext(),
+//                R.layout.spinnerfront2, bodyType_Name);
+//        gotratyAdapter.setDropDownViewResource(R.layout.spinneritem);
+//        spinnerBodyType.setAdapter(gotratyAdapter);
+//
+//        complexion_Name.add(0, "Select Complexion");
+//
+//        ArrayAdapter<String> lagnayAdapter = new ArrayAdapter<String>(getContext(),
+//                R.layout.spinnerfront2, complexion_Name);
+//        lagnayAdapter.setDropDownViewResource(R.layout.spinneritem);
+//        spinnerComplexion.setAdapter(lagnayAdapter);
+//
+//        starName.add(0, "Select Star");
+//
+//        ArrayAdapter<String> staryAdapter = new ArrayAdapter<String>(getContext(),
+//                R.layout.spinnerfront2, starName);
+//        staryAdapter.setDropDownViewResource(R.layout.spinneritem);
+//        spinnerStar.setAdapter(staryAdapter);
+//
+//        rashiName.add(0, "Select Rashi");
+//
+//        ArrayAdapter<String> nationalityAdapter4 = new ArrayAdapter<String>(getContext(),
+//                R.layout.spinnerfront2, rashiName);
+//        nationalityAdapter4.setDropDownViewResource(R.layout.spinneritem);
+//        spinnerRashi.setAdapter(nationalityAdapter4);
+//
+//        gotraName.add(0, "Select Gotra");
+//
+//        ArrayAdapter<String> gotratyAdapter1 = new ArrayAdapter<String>(getContext(),
+//                R.layout.spinnerfront2, gotraName);
+//        gotratyAdapter1.setDropDownViewResource(R.layout.spinneritem);
+//        spinnerGotra.setAdapter(gotratyAdapter1);
+//
+//        lagnaName.add(0, "Select Lagna");
+//
+//        ArrayAdapter<String> lagnayAdapter5 = new ArrayAdapter<String>(getContext(),
+//                R.layout.spinnerfront2, lagnaName);
+//        lagnayAdapter5.setDropDownViewResource(R.layout.spinneritem);
+//        spinnerLagna.setAdapter(lagnayAdapter5);
 
         spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -383,167 +555,168 @@ public class FillteViewProfileFragment extends Fragment {
 
             }
         });
-        spinnerEducation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                educationName =spinnerEducation.getItemAtPosition(spinnerEducation.getSelectedItemPosition()).toString();
-
-                if (educationName.equalsIgnoreCase("Select Eduction")) {
-
-                    educationId = "";
-
-                } else {
-
-                    educationId = education_Map.get(educationName);
-
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        spinnerBodyType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                bodyTypeName =spinnerBodyType.getItemAtPosition(spinnerBodyType.getSelectedItemPosition()).toString();
-
-                if (bodyTypeName.equalsIgnoreCase("Select BodyType")) {
-
-                    bodyTypeId = "";
-
-                } else {
-
-                    bodyTypeId = bodyType_Map.get(bodyTypeName);
-
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        spinnerComplexion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                complexionName =spinnerComplexion.getItemAtPosition(spinnerComplexion.getSelectedItemPosition()).toString();
-
-                if (complexionName.equalsIgnoreCase("Select Complexion")) {
-
-                    complexionid = "";
-
-                } else {
-
-                    complexionid = complexion_Map.get(complexionName);
-
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        spinnerRashi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                rashi_Name =spinnerRashi.getItemAtPosition(spinnerRashi.getSelectedItemPosition()).toString();
-
-                if (rashi_Name.equalsIgnoreCase("Select Rashi")) {
-
-                    rashiId = "";
-
-                } else {
-
-                    rashiId = rashiMap.get(rashi_Name);
-
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        spinnerStar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                star_Name =spinnerStar.getItemAtPosition(spinnerStar.getSelectedItemPosition()).toString();
-
-                if (star_Name.equalsIgnoreCase("Select Star")) {
-
-                    starId = "";
-
-                } else {
-
-                    starId = starMap.get(star_Name);
-
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        spinnerGotra.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                gotra_Name =spinnerGotra.getItemAtPosition(spinnerGotra.getSelectedItemPosition()).toString();
-
-                if (gotra_Name.equalsIgnoreCase("Select Gotra")) {
-
-                    gotraId = "";
-
-                } else {
-
-                    gotraId = gotraMap.get(gotra_Name);
-
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        spinnerLagna.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                lagna_Name = spinnerLagna.getItemAtPosition(spinnerLagna.getSelectedItemPosition()).toString();
-
-                if (lagna_Name.equalsIgnoreCase("Select Lagna")) {
-
-                    lagnaId = "";
-
-                } else {
-
-                    lagnaId = lagnaMap.get(lagna_Name);
-
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        spinnerEducation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                educationName =spinnerEducation.getItemAtPosition(spinnerEducation.getSelectedItemPosition()).toString();
+//
+//                if (educationName.equalsIgnoreCase("Select Eduction")) {
+//
+//                    educationId = "";
+//
+//                } else {
+//
+//                    educationId = education_Map.get(educationName);
+//
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//        spinnerBodyType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                bodyTypeName =spinnerBodyType.getItemAtPosition(spinnerBodyType.getSelectedItemPosition()).toString();
+//
+//                if (bodyTypeName.equalsIgnoreCase("Select BodyType")) {
+//
+//                    bodyTypeId = "";
+//
+//                } else {
+//
+//                    bodyTypeId = bodyType_Map.get(bodyTypeName);
+//
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//        spinnerComplexion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                complexionName =spinnerComplexion.getItemAtPosition(spinnerComplexion.getSelectedItemPosition()).toString();
+//
+//                if (complexionName.equalsIgnoreCase("Select Complexion")) {
+//
+//                    complexionid = "";
+//
+//                } else {
+//
+//                    complexionid = complexion_Map.get(complexionName);
+//
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//        spinnerRashi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                rashi_Name =spinnerRashi.getItemAtPosition(spinnerRashi.getSelectedItemPosition()).toString();
+//
+//                if (rashi_Name.equalsIgnoreCase("Select Rashi")) {
+//
+//                    rashiId = "";
+//
+//                } else {
+//
+//                    rashiId = rashiMap.get(rashi_Name);
+//
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//        spinnerStar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                star_Name =spinnerStar.getItemAtPosition(spinnerStar.getSelectedItemPosition()).toString();
+//
+//                if (star_Name.equalsIgnoreCase("Select Star")) {
+//
+//                    starId = "";
+//
+//                } else {
+//
+//                    starId = starMap.get(star_Name);
+//
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//        spinnerGotra.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                gotra_Name =spinnerGotra.getItemAtPosition(spinnerGotra.getSelectedItemPosition()).toString();
+//
+//                if (gotra_Name.equalsIgnoreCase("Select Gotra")) {
+//
+//                    gotraId = "";
+//
+//                } else {
+//
+//                    gotraId = gotraMap.get(gotra_Name);
+//
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//        spinnerLagna.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                lagna_Name = spinnerLagna.getItemAtPosition(spinnerLagna.getSelectedItemPosition()).toString();
+//
+//                if (lagna_Name.equalsIgnoreCase("Select Lagna")) {
+//
+//                    lagnaId = "";
+//
+//                } else {
+//
+//                    lagnaId = lagnaMap.get(lagna_Name);
+//
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         radioGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -555,9 +728,26 @@ public class FillteViewProfileFragment extends Fragment {
             }
         });
 
+        btn_Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialogConfirm.dismiss();
+            }
+        });
+
+        btn_YourMatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                filterData(userId,CountryId,StateId,DistrictId,CityId,genderName,edit_MinAge.getText().toString().trim(),
+                        edit_MaxAge.getText().toString().trim(),"",bodyTypeId,complexionid,starId,rashiId,lagnaId,gotraId,educationId);
+            }
+        });
+
+        dialogConfirm.show();
 
     }
-
     public void masterApiList1() {
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, ApiList.masterdata, new Response.Listener<String>() {
@@ -1224,7 +1414,6 @@ public class FillteViewProfileFragment extends Fragment {
         requestQueue.add(stringRequest);
 
     }
-
     public void viewSingleprofile(String customer_id){
 
         ProgressDialog progressDialog = new ProgressDialog(getActivity());
@@ -1274,10 +1463,11 @@ public class FillteViewProfileFragment extends Fragment {
                         candidateDetailsModels.add(candidateDetails_model);
                     }
 
-                    LinearLayoutManager linearLayoutManager =
-                            new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+                   // LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL,false);
                     CandidateAdapter candidateAdapter = new CandidateAdapter(getContext(),candidateDetailsModels);
-                    binding.findmatchRecycler.setLayoutManager(linearLayoutManager);
+                    binding.findmatchRecycler.setLayoutManager(gridLayoutManager);
                     binding.findmatchRecycler.setHasFixedSize(true);
                     binding.findmatchRecycler.setAdapter(candidateAdapter);
 
@@ -1306,5 +1496,90 @@ public class FillteViewProfileFragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
 
+    }
+
+    public void filterData(String customer_id, String country, String state, String district,String city,
+                           String gender,String from_age,String to_age,String category, String bodytype,
+                           String complexion,String star,String rashi,String lagna,String gotra,String education ){
+
+        ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Find Your Match");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiList.filterdata, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                progressDialog.dismiss();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String status = jsonObject.getString("status");
+                    if (status.equals("200")){
+
+                        String error = jsonObject.getString("error");
+                        String messages = jsonObject.getString("messages");
+                        JSONObject jsonObject_message = new JSONObject(messages);
+                        String responsecode = jsonObject_message.getString("responsecode");
+                        String statusmess = jsonObject_message.getString("status");
+                        Toast.makeText(getActivity(), statusmess, Toast.LENGTH_SHORT).show();
+
+                        viewSingleprofile(customer_id);
+
+                        dialogConfirm.dismiss();
+
+                    }else{
+
+                        String error = jsonObject.getString("error");
+                        String messages = jsonObject.getString("messages");
+                        JSONObject jsonObject_message = new JSONObject(messages);
+                        String responsecode = jsonObject_message.getString("responsecode");
+                        String statusmess = jsonObject_message.getString("status");
+                        Toast.makeText(getActivity(), statusmess, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                progressDialog.dismiss();
+
+                Toast.makeText(getActivity(), ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String,String> params = new HashMap<>();
+                params.put("customer_id",customer_id);
+                params.put("country",country);
+                params.put("state",state);
+                params.put("district",district);
+                params.put("city",city);
+                params.put("gender",gender);
+                params.put("from_age",from_age);
+                params.put("to_age",to_age);
+                params.put("category",category);
+                params.put("bodytype",bodytype);
+                params.put("complexion",complexion);
+                params.put("star",star);
+                params.put("rashi",rashi);
+                params.put("lagna",lagna);
+                params.put("gotra",gotra);
+                params.put("education",education);
+
+
+                return params;
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(3000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
     }
 }

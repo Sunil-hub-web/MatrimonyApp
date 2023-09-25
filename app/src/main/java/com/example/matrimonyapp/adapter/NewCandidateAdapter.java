@@ -18,6 +18,7 @@ import com.example.matrimonyapp.R;
 import com.example.matrimonyapp.SessionManager;
 import com.example.matrimonyapp.fragment.SingleViewProfile;
 import com.example.matrimonyapp.modelclass.CandidateDetails_Model;
+import com.example.matrimonyapp.modelclass.NewCandidate_ModelClass;
 import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
 
@@ -26,32 +27,32 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.ViewHolder> {
+public class NewCandidateAdapter extends RecyclerView.Adapter<NewCandidateAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<CandidateDetails_Model> candidateDetailsModels;
+    ArrayList<NewCandidate_ModelClass> newCandidate_model;
     SessionManager sessionManager;
-    public CandidateAdapter(Context context, ArrayList<CandidateDetails_Model> candidateDetailsModels) {
+
+    public NewCandidateAdapter(Context context, ArrayList<NewCandidate_ModelClass> newCandidateModelClasses) {
 
         this.context = context;
-        this.candidateDetailsModels = candidateDetailsModels;
-
+        this.newCandidate_model = newCandidateModelClasses;
     }
 
     @NonNull
     @Override
-    public CandidateAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NewCandidateAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.candaditedetails,parent,false);
-        return new ViewHolder(view);
+        return new NewCandidateAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CandidateAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NewCandidateAdapter.ViewHolder holder, int position) {
 
         sessionManager = new SessionManager(context);
 
-        CandidateDetails_Model candidate = candidateDetailsModels.get(position);
+        NewCandidate_ModelClass candidate = newCandidate_model.get(position);
 
         if (candidate.getImage().equals("null")){
 
@@ -66,8 +67,9 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.View
 
 
         holder.textname.setText(candidate.getName());
-        holder.textdenigation.setText(candidate.getProfession_name());
+       // holder.textdenigation.setText(candidate.getProfession_name());
         holder.textgender.setText(candidate.getGender());
+        holder.textdenigation.setVisibility(View.GONE);
 
         String nullvaluev = String.valueOf(candidate.getAge());
 
@@ -108,7 +110,7 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.View
 
     @Override
     public int getItemCount() {
-        return candidateDetailsModels.size();
+        return newCandidate_model.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -116,6 +118,7 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.View
         ImageView imag_uniform;
         TextView textname,textdenigation,textgender,textage;
         MaterialButton btn_ViewProfile;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
