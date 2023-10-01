@@ -47,35 +47,35 @@
 
                 </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/textheader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/ten"
-                android:padding="@dimen/five"
-                android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/white"
-                android:textSize="@dimen/twenty"
-                android:textStyle="bold">
+<!--            <TextView-->
+<!--                android:id="@+id/textheader"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_marginTop="@dimen/ten"-->
+<!--                android:padding="@dimen/five"-->
+<!--                android:fontFamily="@font/poppins_bold"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="@dimen/twenty"-->
+<!--                android:textStyle="bold">-->
 
-            </TextView>
+<!--            </TextView>-->
 
-            <TextView
-                android:id="@+id/text_details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:layout_marginTop="@dimen/five"
-                android:justificationMode="inter_word"
-                android:lineSpacingExtra="5dp"
-                android:lineSpacingMultiplier="1"
-                android:textColor="@color/white"
-                android:layout_marginLeft="@dimen/fifteen"
-                android:layout_marginRight="@dimen/fifteen"
-                android:textSize="@dimen/twelve_size">
+<!--            <TextView-->
+<!--                android:id="@+id/text_details"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="@font/poppins_regular"-->
+<!--                android:layout_marginTop="@dimen/five"-->
+<!--                android:justificationMode="inter_word"-->
+<!--                android:lineSpacingExtra="5dp"-->
+<!--                android:lineSpacingMultiplier="1"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:layout_marginLeft="@dimen/fifteen"-->
+<!--                android:layout_marginRight="@dimen/fifteen"-->
+<!--                android:textSize="@dimen/twelve_size">-->
 
-            </TextView>
+<!--            </TextView>-->
 
            <RelativeLayout
                android:layout_width="match_parent"

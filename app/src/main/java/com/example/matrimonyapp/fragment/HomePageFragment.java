@@ -68,8 +68,8 @@ public class HomePageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_homepage,container,false);
 
         imageview = view.findViewById(R.id.imageview);
-        text_details = view.findViewById(R.id.text_details);
-        textheader = view.findViewById(R.id.textheader);
+        //text_details = view.findViewById(R.id.text_details);
+       // textheader = view.findViewById(R.id.textheader);
         recyclerRecentProfile = view.findViewById(R.id.recyclerRecentProfile);
         recyclersuccessstories = view.findViewById(R.id.recyclersuccessstories);
         imageSlider = view.findViewById(R.id.imageSlider);
@@ -157,8 +157,8 @@ public class HomePageFragment extends Fragment {
 
                         // Picasso.with(getContext()).load(url).into(imageview1);
 
-                        textheader.setText(page_name);
-                        text_details.setText(details);
+                     //   textheader.setText(page_name);
+                      //  text_details.setText(details);
                     }
 
                     JSONArray jsonArray_Allcandidate = new JSONArray(Allcandidate_data);
