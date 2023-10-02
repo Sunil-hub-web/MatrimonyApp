@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -75,7 +76,7 @@ public class PackageFragment extends Fragment {
                         String responsecode = jsonObject_messages.getString("responsecode");
                         String statusArray = jsonObject_messages.getString("status");
                         JSONObject jsonObject_satues = new JSONObject(statusArray);
-                        String str_package = jsonObject_satues.getString("package.png");
+                        String str_package = jsonObject_satues.getString("package");
 
                         packagePriceModels = new ArrayList<>();
                         packagePriceModels.clear();
@@ -100,8 +101,9 @@ public class PackageFragment extends Fragment {
                         }
 
                         linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+                        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false);
                         PackagePriceAdapter packagePriceAdapter = new PackagePriceAdapter(packagePriceModels,getActivity());
-                        packagePriceRecycler.setLayoutManager(linearLayoutManager);
+                        packagePriceRecycler.setLayoutManager(gridLayoutManager);
                         packagePriceRecycler.setHasFixedSize(true);
                         packagePriceRecycler.setAdapter(packagePriceAdapter);
 

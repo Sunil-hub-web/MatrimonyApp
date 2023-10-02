@@ -1,16 +1,19 @@
 package com.example.matrimonyapp.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -21,12 +24,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.matrimonyapp.ApiList;
+import com.example.matrimonyapp.RecyclerTouchListener;
+import com.example.matrimonyapp.adapter.ShowImageGallery;
 import com.example.matrimonyapp.databinding.ViewuserdetailsBinding;
+import com.example.matrimonyapp.modelclass.ShowImageGallery_Model;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +42,9 @@ public class SingleViewProfile extends Fragment {
 
     ViewuserdetailsBinding binding;
     String userId,profileId,message;
+    ArrayList<ShowImageGallery_Model> showImageGallery_models = new ArrayList<>();
+
+    public static ImageView profileImage;
 
     @Nullable
     @Override
@@ -42,6 +53,7 @@ public class SingleViewProfile extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         binding = ViewuserdetailsBinding.inflate(inflater,container,false);
+
 
         Bundle arguments = getArguments();
         if (arguments != null) {
@@ -54,6 +66,23 @@ public class SingleViewProfile extends Fragment {
 
         }
 
+        binding.showGalleryImage.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(),
+                binding.showGalleryImage, new RecyclerTouchListener.ClickListener() {
+
+            @Override
+            public void onClick(View view, int position) {
+
+                ShowImageGallery_Model gallery_model = showImageGallery_models.get(position);
+
+                String url = "https://collegeprojectz.com/matrimonial//uploads/"+gallery_model.getImage();
+                Picasso.with(getActivity()).load(url).into(binding.profileImage);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
         return binding.getRoot();
     }
 
@@ -83,6 +112,7 @@ public class SingleViewProfile extends Fragment {
                         String statusarray  = jsonObject_message.getString("status");
                         JSONObject jsonObject_status = new JSONObject(statusarray);
                         String customerdata = jsonObject_status.getString("customerdata");
+                        String gallery = jsonObject_status.getString("gallery");
 
                         JSONArray jsonArray_data = new JSONArray(customerdata);
 
@@ -148,6 +178,9 @@ public class SingleViewProfile extends Fragment {
                             String candidate_gotra_name = jsonObject1_data.getString("candidate_gotra_name");
                             String candidate_language_name = jsonObject1_data.getString("candidate_language_name");
 
+                            String url = "https://collegeprojectz.com/matrimonial//uploads/"+profi_image;
+                            Picasso.with(getActivity()).load(url).into(binding.profileImage);
+
                             binding.textYourFullName.setText(full_name);
                             binding.textEmail.setText(email);
                             binding.textPhoneNumber.setText(contact_no);
@@ -210,6 +243,30 @@ public class SingleViewProfile extends Fragment {
                             binding.textDiet.setText(diet);
                             binding.textDrink.setText(drink);
                             binding.textSmoke.setText(smoke);
+
+                            JSONArray jsonArray_gallery = new JSONArray(gallery);
+
+                            for (int j=0;j<jsonArray_gallery.length();j++){
+
+                                JSONObject jsonObject1_gallery = jsonArray_gallery.getJSONObject(j);
+                                String gallery_id = jsonObject1_gallery.getString("gallery_id");
+                                String image = jsonObject1_gallery.getString("image");
+                                String user_id = jsonObject1_gallery.getString("user_id");
+
+                                ShowImageGallery_Model showImageGalleryModel = new ShowImageGallery_Model(
+                                        gallery_id, image, user_id
+                                );
+
+                                showImageGallery_models.add(showImageGalleryModel);
+                            }
+
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
+                                    getActivity(),LinearLayoutManager.HORIZONTAL,false
+                            );
+                            ShowImageGallery showImageGallery = new ShowImageGallery(showImageGallery_models,getActivity());
+                            binding.showGalleryImage.setLayoutManager(linearLayoutManager);
+                            binding.showGalleryImage.setHasFixedSize(true);
+                            binding.showGalleryImage.setAdapter(showImageGallery);
 
                         }
                     }else{

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/home1icon"/>
+
+    <item
+        android:id="@+id/matches"
+        android:title="Matches"
+        android:icon="@drawable/selectprofile"/>
+
+    <item
+        android:id="@+id/packages"
+        android:title="Packages"
+        android:icon="@drawable/salary"/>
+
+    <item
+       android:id="@+id/profile"
+       android:title="Profile"
+       android:icon="@drawable/user"/>
+
+
+</menu>

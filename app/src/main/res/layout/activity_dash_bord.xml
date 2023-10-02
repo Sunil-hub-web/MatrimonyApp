@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DashBordActivity"
-    android:background="@color/Hot_Pink"
+    android:background="@color/white"
     android:id="@+id/MyDrawer">
 
     <LinearLayout
@@ -20,13 +20,31 @@
             android:layout_height="match_parent">
 
             <FrameLayout
+                android:id="@+id/framLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/ten"
-                android:id="@+id/framLayout">
+                android:layout_marginStart="@dimen/ten"
+                android:layout_marginTop="@dimen/ten"
+                android:layout_marginEnd="@dimen/ten"
+                android:layout_marginBottom="@dimen/ten">
 
 
             </FrameLayout>
+
+           <com.google.android.material.bottomnavigation.BottomNavigationView
+               android:id="@+id/bottomNavigation"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/seventy"
+               android:layout_alignParentBottom="true"
+               android:layout_gravity="bottom"
+               android:background="#FFFFFF"
+               android:elevation="@dimen/twenty"
+               app:itemIconTint="@drawable/selector"
+               app:itemTextColor="@drawable/selector"
+               app:labelVisibilityMode="labeled"
+               app:menu="@menu/menu_navigation">
+
+           </com.google.android.material.bottomnavigation.BottomNavigationView>
 
         </RelativeLayout>
 

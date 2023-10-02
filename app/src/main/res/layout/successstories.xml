@@ -64,12 +64,26 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/thirteen"
                         android:textStyle="bold"
+                        android:gravity="right"
                         android:fontFamily="@font/poppins_regular">
 
                     </TextView>
 
                 </LinearLayout>
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_ViewProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/forty"
+                    android:layout_margin="@dimen/five"
+                    app:cornerRadius="@dimen/ten"
+                    android:text="View Profile"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/twelve_size"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/back_bg1">
+
+                </com.google.android.material.button.MaterialButton>
 
 
             </LinearLayout>

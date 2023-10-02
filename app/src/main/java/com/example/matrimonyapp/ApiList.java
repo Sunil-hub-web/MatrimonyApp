@@ -19,6 +19,7 @@ public class ApiList {
     public static final String Updatepassword = MAIN_URL+"Updatepassword";
     public static final String viewandselectprofile = MAIN_URL+"viewandselectprofile";
     public static final String filterdata = MAIN_URL+"filterdata";
+    public static final String single_Success_stories = MAIN_URL+"single_Success_stories";
 
 
 }

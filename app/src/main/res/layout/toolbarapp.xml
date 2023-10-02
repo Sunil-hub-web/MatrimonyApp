@@ -1,41 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="@dimen/five"
-    android:background="@drawable/backgroundcolor"
-    android:layout_margin="@dimen/three">
+    android:layout_margin="@dimen/three"
+    android:elevation="@dimen/five">
 
     <RelativeLayout
+        android:id="@+id/realBack"
         android:layout_width="match_parent"
         android:layout_height="@dimen/forty"
-        android:id="@+id/realBack"
         android:layout_margin="@dimen/five"
-        android:background="@color/Hot_Pink">
+        android:background="@color/bs_pink">
 
 
         <ImageView
             android:id="@+id/menu"
             android:layout_width="@dimen/forty"
             android:layout_height="@dimen/forty"
+            android:layout_centerVertical="true"
             android:layout_marginTop="@dimen/ten"
             android:layout_marginRight="@dimen/five"
             android:onClick="Clickmenu"
             android:src="@drawable/image111"
-            app:tint="@color/white"
-            android:layout_centerVertical="true">
+            app:tint="@color/white">
 
         </ImageView>
 
-      <!--  <ImageView
-            android:id="@+id/backimage"
-            android:layout_width="@dimen/forty"
-            android:layout_height="@dimen/forty"
-            android:src="@drawable/back_arrow"
-            android:layout_centerVertical="true"
-            android:visibility="gone" />-->
+        <!--  <ImageView
+              android:id="@+id/backimage"
+              android:layout_width="@dimen/forty"
+              android:layout_height="@dimen/forty"
+              android:src="@drawable/back_arrow"
+              android:layout_centerVertical="true"
+              android:visibility="gone" />-->
 
         <!--  <ImageView
             android:id="@+id/imagecart"
@@ -49,20 +47,20 @@
 
         </ImageView>-->
 
-      <!--  <ImageView
-            android:id="@+id/image_search"
-            android:layout_width="@dimen/thirty"
-            android:layout_height="@dimen/thirty"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="20dp"
-            android:onClick="Serachpage"
-            android:src="@drawable/search"
-            app:tint="@color/colorAccent">
+        <!--  <ImageView
+              android:id="@+id/image_search"
+              android:layout_width="@dimen/thirty"
+              android:layout_height="@dimen/thirty"
+              android:layout_alignParentRight="true"
+              android:layout_centerVertical="true"
+              android:layout_marginTop="5dp"
+              android:layout_marginRight="20dp"
+              android:onClick="Serachpage"
+              android:src="@drawable/search"
+              app:tint="@color/colorAccent">
 
-        </ImageView>
--->
+          </ImageView>
+  -->
         <!--  <ImageView
             android:id="@+id/logo"
             android:layout_width="@dimen/sixty"
@@ -82,16 +80,18 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true">
 
-            <!-- <ImageView
+            <ImageView
                 android:id="@+id/loc"
                 android:layout_width="@dimen/thirty"
                 android:layout_height="@dimen/thirty"
-                android:src="@drawable/place"
-                android:onClick="Serachpage"
+                android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/ten"
-                android:layout_centerVertical="true">
+                android:onClick="Serachpage"
+                android:src="@drawable/search"
+                android:layout_centerVertical="true"
+                app:tint="@color/white">
 
-            </ImageView>-->
+            </ImageView>
 
             <TextView
                 android:id="@+id/text_PageName"
@@ -102,50 +102,10 @@
                 android:layout_marginTop="@dimen/ten"
                 android:fontFamily="@font/poppins_bold"
                 android:text="Home"
-                android:textColor="#22647E"
-                android:textSize="@dimen/textsize"
-                android:textStyle="bold"></TextView>
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize"></TextView>
 
-            <!--  <TextView
-                android:id="@+id/text_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#22647E"
-                android:textSize="@dimen/textsize"
-                android:text="Home"
-                android:layout_toRightOf="@id/loc"
-                android:layout_below="@+id/text_addressName"
-                android:textStyle="bold"
-                android:drawableRight="@drawable/arrow_drop_down"></TextView>
--->
         </RelativeLayout>
-
-
-        <!--   <ImageView
-            android:id="@+id/img_Cart"
-            android:layout_width="@dimen/twenty_five"
-            android:layout_height="@dimen/twenty_five"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/twenty"
-            android:layout_marginRight="40dp"
-            android:src="@drawable/cart"
-            app:tint="@color/some_color3">
-
-        </ImageView>-->
-
-        <!-- <TextView
-            android:id="@+id/text_ItemCount"
-            android:layout_width="@dimen/thirty"
-            android:layout_height="@dimen/thirty"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/two"
-            android:layout_marginRight="@dimen/ten"
-            android:background="@drawable/textcountshape"
-            android:gravity="center"
-            android:text="12"
-            android:textColor="@color/some_color5"
-            android:textSize="@dimen/twelve_size"
-            android:textStyle="bold" />-->
 
 
     </RelativeLayout>

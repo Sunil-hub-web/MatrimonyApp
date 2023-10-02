@@ -12,7 +12,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,7 +54,7 @@ import java.util.Map;
 public class HomePageFragment extends Fragment {
 
     ImageView imageview,imageview1;
-    TextView text_details,homeAddress,textheader;
+    TextView text_details,homeAddress,textheader,textViewAll,textViewAll1;
     ArrayList<CandidateDetails_Model> candidateDetailsModels = new ArrayList<>();
     ArrayList<NewCandidate_ModelClass> newCandidateModelClasses = new ArrayList<>();
     ArrayList<SuccessStories_model> successStoriesModels = new ArrayList<>();
@@ -67,17 +70,47 @@ public class HomePageFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage,container,false);
 
-        imageview = view.findViewById(R.id.imageview);
+        //imageview = view.findViewById(R.id.imageview);
         //text_details = view.findViewById(R.id.text_details);
        // textheader = view.findViewById(R.id.textheader);
         recyclerRecentProfile = view.findViewById(R.id.recyclerRecentProfile);
         recyclersuccessstories = view.findViewById(R.id.recyclersuccessstories);
         imageSlider = view.findViewById(R.id.imageSlider);
         recyclerNewCandidateProfile = view.findViewById(R.id.recyclerNewCandidateProfile);
+        textViewAll = view.findViewById(R.id.textViewAll);
+        textViewAll1 = view.findViewById(R.id.textViewAll1);
 
        // Picasso.with(getContext()).load("https://collegeprojectz.com/matrimonial//assets/user/img/banner.jpg").into(imageview);
 
         getHomedetails();
+
+        textViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Fragment fragment = new FillteViewProfileFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.framLayout, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        });
+
+        textViewAll1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Fragment fragment = new FillteViewProfileFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.framLayout, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        });
 
         return view;
     }
@@ -135,8 +168,8 @@ public class HomePageFragment extends Fragment {
                     imageSlider.setIndicatorAnimation(IndicatorAnimationType.DROP); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
                     imageSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
                     imageSlider.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
-                    imageSlider.setIndicatorSelectedColor(Color.WHITE);
-                    imageSlider.setIndicatorUnselectedColor(Color.GRAY);
+                    imageSlider.setIndicatorSelectedColor(ContextCompat.getColor(getContext(),R.color.bs_pink));
+                    imageSlider.setIndicatorUnselectedColor(ContextCompat.getColor(getContext(),R.color.bs_pink2));
                     imageSlider.setScrollTimeInSec(3);
                     imageSlider.setAutoCycle(true);
                     imageSlider.startAutoCycle();

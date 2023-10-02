@@ -1,19 +1,31 @@
 package com.example.matrimonyapp.adapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.matrimonyapp.ApiList;
 import com.example.matrimonyapp.R;
 import com.example.matrimonyapp.SessionManager;
 import com.example.matrimonyapp.fragment.SingleViewProfile;
@@ -22,16 +34,23 @@ import com.example.matrimonyapp.modelclass.NewCandidate_ModelClass;
 import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NewCandidateAdapter extends RecyclerView.Adapter<NewCandidateAdapter.ViewHolder> {
 
     Context context;
     ArrayList<NewCandidate_ModelClass> newCandidate_model;
     SessionManager sessionManager;
+    String resoanseData;
 
     public NewCandidateAdapter(Context context, ArrayList<NewCandidate_ModelClass> newCandidateModelClasses) {
 
@@ -93,16 +112,18 @@ public class NewCandidateAdapter extends RecyclerView.Adapter<NewCandidateAdapte
             @Override
             public void onClick(View v) {
 
-                SingleViewProfile singleViewProfile = new SingleViewProfile();
-                Bundle bundle = new Bundle();
-                bundle.putString("userId", sessionManager.getUSERID());
-                bundle.putString("profileId",candidate.getId());
-                bundle.putString("message","Homeprofile");
-                singleViewProfile.setArguments(bundle);
-                FragmentTransaction transaction =((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.framLayout, singleViewProfile); // Add your fragment class
-                transaction.addToBackStack(null);
-                transaction.commit();
+                getProfileDetails(sessionManager.getUSERID(),candidate.getId());
+
+//                SingleViewProfile singleViewProfile = new SingleViewProfile();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("userId", sessionManager.getUSERID());
+//                bundle.putString("profileId",candidate.getId());
+//                bundle.putString("message","Homeprofile");
+//                singleViewProfile.setArguments(bundle);
+//                FragmentTransaction transaction =((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.framLayout, singleViewProfile); // Add your fragment class
+//                transaction.addToBackStack(null);
+//                transaction.commit();
             }
         });
 
@@ -129,5 +150,97 @@ public class NewCandidateAdapter extends RecyclerView.Adapter<NewCandidateAdapte
             textage = itemView.findViewById(R.id.textage);
             btn_ViewProfile = itemView.findViewById(R.id.btn_ViewProfile);
         }
+    }
+
+    public void getProfileDetails(String customer_id,String profile_id){
+
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("View Profile Please Wait.....");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiList.Single_profile, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                progressDialog.dismiss();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    String status = jsonObject.getString("status");
+
+                    if (status.equals("200")){
+
+                        resoanseData = "Valide";
+
+                        String error = jsonObject.getString("error");
+                        String messages = jsonObject.getString("messages");
+                        JSONObject jsonObject_message = new JSONObject(messages);
+                        String responsecode  = jsonObject_message.getString("responsecode");
+                        String statusarray  = jsonObject_message.getString("status");
+                        JSONObject jsonObject_status = new JSONObject(statusarray);
+                        String customerdata = jsonObject_status.getString("customerdata");
+                        String gallery = jsonObject_status.getString("gallery");
+
+                        JSONArray jsonArray_data = new JSONArray(customerdata);
+
+                        for (int i=0;i<jsonArray_data.length();i++){
+
+                            JSONObject jsonObject1_data = jsonArray_data.getJSONObject(0);
+
+                        }
+
+                        SingleViewProfile singleViewProfile = new SingleViewProfile();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("userId", sessionManager.getUSERID());
+                        bundle.putString("profileId",profile_id);
+                        bundle.putString("message","Homeprofile");
+                        singleViewProfile.setArguments(bundle);
+                        FragmentTransaction transaction =((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.framLayout, singleViewProfile); // Add your fragment class
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+
+                    }else{
+
+                        String error = jsonObject.getString("error");
+                        String messages = jsonObject.getString("messages");
+                        JSONObject jsonObject1_message = new JSONObject(messages);
+                        String responsecode = jsonObject1_message.getString("responsecode");
+                        String statusresp = jsonObject1_message.getString("status");
+                        resoanseData = "NotValide";
+                        Toast.makeText(context, statusresp, Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                progressDialog.dismiss();
+
+                Toast.makeText(context, "" + error, Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String,String> params = new HashMap<>();
+                params.put("customer_id",customer_id);
+                params.put("profile_id",profile_id);
+
+                Log.d("userdetails",params.toString());
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(3000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
     }
 }
